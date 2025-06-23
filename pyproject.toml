@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-markdown = "^3.5.1"
+markdown = "^3.8.2"
 jinja2 = "^3.1.2"
 python-frontmatter = "^1.0.1"
 pytz = "^2023.3"
@@ -20,5 +20,3 @@ flake8 = "^6.0.0"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.poetry.scripts]
-build = "build:build_site"
