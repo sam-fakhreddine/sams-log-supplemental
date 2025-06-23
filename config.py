@@ -7,7 +7,7 @@ POSTS_PER_PAGE = 10
 TIMEZONE = "UTC"
 
 # SEO Settings
-DEFAULT_OG_IMAGE = "/assets/og-image.png"  # Add your default social media image
+DEFAULT_OG_IMAGE = "/assets/image.png"  # Add your default social media image
 GOOGLE_ANALYTICS_ID = None  # Replace with "GA_TRACKING_ID" when ready
 
 # Social Links (optional)

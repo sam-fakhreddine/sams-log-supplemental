@@ -7,6 +7,7 @@ import frontmatter
 import pytz
 import xml.etree.ElementTree as ET
 from urllib.parse import quote
+from config import *
 
 def extract_metadata(filepath):
     """Extract metadata from frontmatter or content"""
@@ -28,7 +29,7 @@ def extract_metadata(filepath):
         print(f"Error processing {filepath}: {e}")
         return "Error", datetime.now().strftime('%Y-%m-%d'), "", [], ""
 
-def generate_sitemap(posts, base_url="https://sam-fakhreddine.github.io/sams-log-supplemental"):
+def generate_sitemap(posts, base_url=BASE_URL):
     """Generate XML sitemap"""
     urlset = ET.Element('urlset', xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
     
@@ -48,14 +49,14 @@ def generate_sitemap(posts, base_url="https://sam-fakhreddine.github.io/sams-log
     
     return ET.tostring(urlset, encoding='unicode')
 
-def generate_rss(posts, base_url="https://sam-fakhreddine.github.io/sams-log-supplemental"):
+def generate_rss(posts, base_url=BASE_URL):
     """Generate RSS feed"""
     rss = ET.Element('rss', version="2.0")
     channel = ET.SubElement(rss, 'channel')
     
-    ET.SubElement(channel, 'title').text = "Sam's Log Supplemental"
+    ET.SubElement(channel, 'title').text = BLOG_TITLE
     ET.SubElement(channel, 'link').text = base_url
-    ET.SubElement(channel, 'description').text = 'Latest posts from my blog'
+    ET.SubElement(channel, 'description').text = BLOG_DESCRIPTION
     ET.SubElement(channel, 'language').text = 'en-us'
     
     for post in posts[:10]:  # Latest 10 posts
@@ -106,7 +107,7 @@ def build_site():
                     
                     # Generate post page
                     post_template = env.get_template('post.html')
-                    post_html = post_template.render(post=post, all_posts=posts)
+                    post_html = post_template.render(post=post, all_posts=posts, config={'BLOG_TITLE': BLOG_TITLE, 'BLOG_DESCRIPTION': BLOG_DESCRIPTION, 'BLOG_AUTHOR': BLOG_AUTHOR, 'BASE_URL': BASE_URL, 'current_year': datetime.now().year})
                     
                     with open(f'docs/{slug}', 'w', encoding='utf-8') as f:
                         f.write(post_html)
@@ -116,7 +117,7 @@ def build_site():
         
         # Generate index page
         index_template = env.get_template('index.html')
-        index_html = index_template.render(posts=posts)
+        index_html = index_template.render(posts=posts, config={'BLOG_TITLE': BLOG_TITLE, 'BLOG_DESCRIPTION': BLOG_DESCRIPTION, 'BLOG_AUTHOR': BLOG_AUTHOR, 'BASE_URL': BASE_URL, 'current_year': datetime.now().year})
         
         with open('docs/index.html', 'w', encoding='utf-8') as f:
             f.write(index_html)
