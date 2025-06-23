@@ -48,7 +48,7 @@ jobs:
         find posts -name "*.md" -exec poetry run python -c "import frontmatter; frontmatter.load(open('{}'))" \;
     
     - name: Build site
-      run: poetry run python build.py
+      run: poetry run python buildblog.py
     
     - name: Validate build
       run: |
