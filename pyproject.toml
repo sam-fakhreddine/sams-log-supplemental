@@ -14,7 +14,7 @@ pytz = "^2023.3"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.0.0"
-flake8 = "^6.0.0"
+flake8 = "^7.0.0"
 
 [build-system]
 requires = ["poetry-core"]
