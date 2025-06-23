@@ -45,12 +45,14 @@ The key constraints to remember:
 ### Basic CLI Implementation
 
 **Production Environment (Change Request Required):**
+
 ```bash
 aws s3 mv source-file.txt s3://prod-bucket/archived/source-file.txt \
   --metadata "change-request-id=CR-12345,environment=production,operator=john.doe,timestamp=2024-01-16T10:30:00Z,purpose=security-remediation"
 ```
 
 **Non-Production Environment (JIRA/ServiceNow Ticket):**
+
 ```bash
 aws s3 mv test-data.txt s3://dev-bucket/archived/test-data.txt \
   --metadata "ticket-id=PROJ-5678,ticket-system=jira,environment=development,operator=jane.smith,timestamp=2024-01-16T14:15:00Z,purpose=testing-cleanup"
@@ -234,12 +236,14 @@ NONPROD_METADATA = {
 The key to success is integrating with environment-appropriate governance:
 
 **Production Environment:**
+
 1. **Change Request Creation**: Include S3 metadata requirements in CAB templates
 2. **Approval Workflow**: Validate change request ID before execution
 3. **Execution Scripts**: Enforce change request metadata for prod operations
 4. **Monitoring**: Alert on production S3 operations without change requests
 
 **Non-Production Environments:**
+
 1. **JIRA Integration**: Link S3 operations to development/testing tickets
 2. **ServiceNow Tasks**: Associate operations with incident resolution
 3. **Lightweight Approval**: Team lead approval via ticket system
