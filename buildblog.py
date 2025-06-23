@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import shutil
 import markdown
 from jinja2 import Environment, FileSystemLoader
 from datetime import datetime
@@ -77,6 +78,13 @@ def build_site():
         
         # Create output directory
         os.makedirs('docs', exist_ok=True)
+        
+        # Copy assets to docs/assets
+        if os.path.exists('assets'):
+            if os.path.exists('docs/assets'):
+                shutil.rmtree('docs/assets')
+            shutil.copytree('assets', 'docs/assets')
+            print("✅ Copied assets to docs/assets")
         
         # Process posts
         posts = []
