@@ -27,6 +27,9 @@
         h1 { margin-top: 0; }
         .banner { position: relative; margin-bottom: 20px; }
         .banner-img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; }
+        @media (max-width: 600px) { .banner-img { content: url('/assets/banner-small.webp'); height: 100px; } }
+        @media (min-width: 601px) and (max-width: 1000px) { .banner-img { content: url('/assets/banner-medium.webp'); } }
+        @media (min-width: 1001px) { .banner-img { content: url('/assets/banner-large.webp'); } }
         .banner-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.7)); padding: 20px; border-radius: 0 0 8px 8px; }
         .banner-overlay h1 { margin: 0; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
         .banner-overlay h1 a { color: white; }
