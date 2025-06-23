@@ -1,8 +1,8 @@
 # Blog Configuration
-BLOG_TITLE = "My Blog"
-BLOG_DESCRIPTION = "A blog about technology, programming, and ideas"
-BLOG_AUTHOR = "Your Name"
-BASE_URL = "https://yourusername.github.io/yourrepo"
+BLOG_TITLE = "Sam's Log Supplemental"
+BLOG_DESCRIPTION = "Technical insights, programming adventures, and digital discoveries"
+BLOG_AUTHOR = "Sam Fakhreddine"
+BASE_URL = "https://sam-fakhreddine.github.io/sams-log-supplemental"
 POSTS_PER_PAGE = 10
 TIMEZONE = "UTC"
 
@@ -12,7 +12,7 @@ GOOGLE_ANALYTICS_ID = None  # Replace with "GA_TRACKING_ID" when ready
 
 # Social Links (optional)
 SOCIAL_LINKS = {
-    "github": "https://github.com/yourusername",
-    "twitter": "https://twitter.com/yourusername",
-    "linkedin": "https://linkedin.com/in/yourusername"
+    "github": "https://github.com/sam-fakhreddine",
+    "twitter": "https://twitter.com/sam_fakhreddine",
+    "linkedin": "https://linkedin.com/in/sam-fakhreddine"
 }
