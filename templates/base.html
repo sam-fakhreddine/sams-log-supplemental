@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% set desc_content %}{% block description %}A blog about technology, programming, and ideas{% endblock %}{% endset %}
-    {% set title_content %}{% block title %}My Blog{% endblock %}{% endset %}
+    {% set desc_content %}{% block description %}A blog about technology, programming, and ideas{% endblock %}{% endset -%}
+    {% set title_content %}{% block title %}Sam's Log Supplemental{% endblock %}{% endset -%}
     <meta name="description" content="{{ desc_content }}">
-    <meta name="author" content="Your Name">
+    <meta name="author" content="Sam Fakhreddine">
     <meta property="og:title" content="{{ title_content }}">
     <meta property="og:description" content="{{ desc_content }}">
     <meta property="og:type" content="{% block og_type %}website{% endblock %}">

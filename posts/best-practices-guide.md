@@ -1,6 +1,6 @@
 ---
 title: "Blog Best Practices Guide"
-date: "2024-01-16"
+date: "2024-12-23"
 description: "Essential best practices for maintaining a professional blog with GitHub Pages"
 tags: ["blogging", "best-practices", "seo", "github-pages"]
 ---

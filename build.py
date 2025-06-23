@@ -28,7 +28,7 @@ def extract_metadata(filepath):
         print(f"Error processing {filepath}: {e}")
         return "Error", datetime.now().strftime('%Y-%m-%d'), "", [], ""
 
-def generate_sitemap(posts, base_url="https://yourusername.github.io/yourrepo"):
+def generate_sitemap(posts, base_url="https://sam-fakhreddine.github.io/sams-log-supplemental"):
     """Generate XML sitemap"""
     urlset = ET.Element('urlset', xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
     
@@ -48,12 +48,12 @@ def generate_sitemap(posts, base_url="https://yourusername.github.io/yourrepo"):
     
     return ET.tostring(urlset, encoding='unicode')
 
-def generate_rss(posts, base_url="https://yourusername.github.io/yourrepo"):
+def generate_rss(posts, base_url="https://sam-fakhreddine.github.io/sams-log-supplemental"):
     """Generate RSS feed"""
     rss = ET.Element('rss', version="2.0")
     channel = ET.SubElement(rss, 'channel')
     
-    ET.SubElement(channel, 'title').text = 'My Blog'
+    ET.SubElement(channel, 'title').text = "Sam's Log Supplemental"
     ET.SubElement(channel, 'link').text = base_url
     ET.SubElement(channel, 'description').text = 'Latest posts from my blog'
     ET.SubElement(channel, 'language').text = 'en-us'
@@ -72,7 +72,7 @@ def build_site():
     try:
         # Setup
         env = Environment(loader=FileSystemLoader('templates'))
-        md = markdown.Markdown(extensions=['meta', 'codehilite', 'toc', 'tables'])
+        md = markdown.Markdown(extensions=['meta', 'fenced_code', 'codehilite', 'toc', 'tables'])
         
         # Create output directory
         os.makedirs('docs', exist_ok=True)

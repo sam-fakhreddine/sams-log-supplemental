@@ -1,6 +1,6 @@
 ---
 title: "Hello World - My First Blog Post"
-date: "2024-01-15"
+date: "2024-12-23"
 description: "Welcome to my new blog! Learn about the features and setup of this GitHub Pages blog."
 tags: ["blog", "github-pages", "python", "markdown"]
 ---
