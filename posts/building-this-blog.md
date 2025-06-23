@@ -12,6 +12,7 @@ Welcome to Sam's Log Supplemental! This is the story of how this blog came to li
 ## 🎯 The Goal
 
 I wanted a simple, fast blog that could:
+
 - Write posts in Markdown
 - Deploy automatically on every push
 - Look professional with minimal effort
@@ -21,6 +22,7 @@ I wanted a simple, fast blog that could:
 ## 🛠️ The Tech Stack
 
 **Core Technologies:**
+
 - **Python** - Static site generation
 - **Poetry** - Modern dependency management
 - **Jinja2** - HTML templating
@@ -29,6 +31,7 @@ I wanted a simple, fast blog that could:
 - **GitHub Pages** - Free hosting
 
 **Key Libraries:**
+
 ```toml
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -71,12 +74,14 @@ def build_site():
 ## ✨ Features Implemented
 
 ### Content Management
+
 - **Frontmatter support** for rich metadata
 - **Tag system** for categorization
 - **Automatic date handling**
 - **Content validation** in CI pipeline
 
 ### SEO & Discovery
+
 - **XML sitemap** generation
 - **RSS feed** for subscribers
 - **Open Graph** meta tags for social sharing
@@ -84,12 +89,14 @@ def build_site():
 - **Semantic HTML** structure
 
 ### Design & UX
+
 - **Dark mode** with system preference detection
 - **Mobile-responsive** design
 - **Fast loading** with optimized CSS
 - **Accessible** markup and contrast
 
 ### Developer Experience
+
 - **Poetry** for dependency management
 - **GitHub Actions** for automated deployment
 - **Error handling** and build validation
@@ -114,6 +121,7 @@ The GitHub Actions workflow is beautifully simple:
 ```
 
 Every push to `main` triggers:
+
 1. Content validation
 2. Site building
 3. Deployment to GitHub Pages
@@ -121,16 +129,19 @@ Every push to `main` triggers:
 ## 💡 Key Decisions
 
 **Why Python over Jekyll/Hugo?**
+
 - Full control over the build process
 - Easy to extend and customize
 - Familiar tooling and ecosystem
 
 **Why Poetry over pip?**
+
 - Better dependency resolution
 - Lock files for reproducible builds
 - Modern Python packaging standards
 
 **Why GitHub Pages?**
+
 - Free hosting
 - Automatic HTTPS
 - Integrated with GitHub Actions
@@ -139,6 +150,7 @@ Every push to `main` triggers:
 ## 📊 Performance Results
 
 The generated site is lightning fast:
+
 - **Minimal CSS** - No frameworks, just custom properties
 - **Static HTML** - No JavaScript required
 - **Optimized images** - Responsive and properly sized
@@ -147,15 +159,17 @@ The generated site is lightning fast:
 ## 🔮 Future Enhancements
 
 Some ideas for future iterations:
+
 - **Search functionality** with client-side indexing
 - **Comment system** integration
-- **Analytics dashboard** 
+- **Analytics dashboard**
 - **Newsletter signup** automation
 - **Image optimization** pipeline
 
 ## 🎉 The Result
 
 In less than an hour, we went from empty directory to fully functional blog with:
+
 - ✅ Professional design with dark mode
 - ✅ SEO optimization
 - ✅ RSS feed

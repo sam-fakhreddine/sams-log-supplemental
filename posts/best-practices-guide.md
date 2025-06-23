@@ -12,6 +12,7 @@ Here are the key best practices now implemented in this blog setup:
 ## 📝 Content Best Practices
 
 ### Frontmatter Structure
+
 Always include proper frontmatter in your posts:
 
 ```yaml
@@ -24,6 +25,7 @@ tags: ["relevant", "tags", "here"]
 ```
 
 ### Writing Tips
+
 - Use descriptive titles with keywords
 - Write compelling descriptions for SEO
 - Include relevant tags for categorization
@@ -34,12 +36,14 @@ tags: ["relevant", "tags", "here"]
 ## 🔍 SEO Enhancements
 
 ### Meta Tags
+
 - Open Graph tags for social sharing
 - Twitter Card support
 - Canonical URLs to prevent duplicate content
 - Structured data with semantic HTML
 
 ### Technical SEO
+
 - XML sitemap auto-generation
 - RSS feed for subscribers
 - Mobile-responsive design
@@ -49,18 +53,21 @@ tags: ["relevant", "tags", "here"]
 ## 🎨 Design & UX
 
 ### Responsive Design
+
 - Mobile-first approach
 - Flexible grid system
 - Readable typography
 - Touch-friendly navigation
 
 ### Accessibility
+
 - Semantic HTML structure
 - Proper contrast ratios
 - Keyboard navigation support
 - Screen reader friendly
 
 ### Dark Mode
+
 - Automatic theme detection
 - CSS custom properties
 - Consistent color scheme
@@ -68,12 +75,14 @@ tags: ["relevant", "tags", "here"]
 ## ⚡ Performance
 
 ### Optimization
+
 - Minimal CSS and JavaScript
 - Optimized images
 - Efficient build process
 - CDN-ready static files
 
 ### Caching
+
 - GitHub Actions caching
 - Browser caching headers
 - Static asset optimization
@@ -81,6 +90,7 @@ tags: ["relevant", "tags", "here"]
 ## 🔒 Security
 
 ### Content Security
+
 - Input validation in build process
 - Safe HTML rendering
 - No inline scripts (CSP-ready)
@@ -89,6 +99,7 @@ tags: ["relevant", "tags", "here"]
 ## 📊 Analytics Ready
 
 ### Tracking Setup
+
 - Google Analytics integration ready
 - Privacy-compliant tracking
 - Performance monitoring
@@ -97,12 +108,14 @@ tags: ["relevant", "tags", "here"]
 ## 🚀 Deployment
 
 ### CI/CD Pipeline
+
 - Automated builds on push
 - Content validation
 - Build verification
 - Zero-downtime deployment
 
 ### Monitoring
+
 - Build status checks
 - Error handling and reporting
 - Performance monitoring
@@ -110,6 +123,7 @@ tags: ["relevant", "tags", "here"]
 ## 📱 Social Media
 
 ### Sharing Optimization
+
 - Open Graph images
 - Twitter Cards
 - Social media meta tags
