@@ -13,6 +13,5 @@ GOOGLE_ANALYTICS_ID = None  # Replace with "GA_TRACKING_ID" when ready
 # Social Links (optional)
 SOCIAL_LINKS = {
     "github": "https://github.com/sam-fakhreddine",
-    "twitter": "https://twitter.com/sam_fakhreddine",
     "linkedin": "https://linkedin.com/in/sam-fakhreddine"
 }
