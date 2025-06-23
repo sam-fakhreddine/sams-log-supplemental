@@ -44,24 +44,29 @@ The key constraints to remember:
 
 ### Basic CLI Implementation
 
-Here's how to perform an S3 move operation with embedded change request metadata:
-
+**Production Environment (Change Request Required):**
 ```bash
-aws s3 mv source-file.txt s3://secure-bucket/archived/source-file.txt \
-  --metadata "change-request-id=CR-12345,operator=john.doe,timestamp=2024-01-16T10:30:00Z,purpose=security-remediation"
+aws s3 mv source-file.txt s3://prod-bucket/archived/source-file.txt \
+  --metadata "change-request-id=CR-12345,environment=production,operator=john.doe,timestamp=2024-01-16T10:30:00Z,purpose=security-remediation"
 ```
 
-This simple addition transforms an anonymous file operation into a fully documented, traceable action.
+**Non-Production Environment (JIRA/ServiceNow Ticket):**
+```bash
+aws s3 mv test-data.txt s3://dev-bucket/archived/test-data.txt \
+  --metadata "ticket-id=PROJ-5678,ticket-system=jira,environment=development,operator=jane.smith,timestamp=2024-01-16T14:15:00Z,purpose=testing-cleanup"
+```
+
+These simple additions transform anonymous file operations into fully documented, traceable actions with environment-appropriate governance.
 
 ### Python Implementation for Complex Operations
 
-For more sophisticated scenarios, here's a Python class that handles metadata-enriched S3 operations:
+For more sophisticated scenarios, here's a Python class that handles environment-aware metadata:
 
 ```python
 import boto3
 from datetime import datetime
 import os
-from typing import Dict, Optional
+from typing import Dict, Optional, Literal
 
 class S3MetadataManager:
     def __init__(self, region_name: str = 'us-east-1'):
@@ -72,20 +77,35 @@ class S3MetadataManager:
                           source_key: str,
                           dest_bucket: str, 
                           dest_key: str,
-                          change_request_id: str,
+                          environment: Literal['production', 'staging', 'development', 'test'],
+                          tracking_id: str,
+                          tracking_system: Literal['change-request', 'jira', 'servicenow'] = 'jira',
                           operator: Optional[str] = None,
                           additional_metadata: Optional[Dict[str, str]] = None) -> bool:
         """
-        Move S3 object with comprehensive change request metadata
+        Move S3 object with environment-appropriate governance metadata
         """
         try:
-            # Build standard metadata
+            # Build environment-specific metadata
             metadata = {
-                'change-request-id': change_request_id,
+                'environment': environment,
                 'operator': operator or os.getenv('USER', 'unknown'),
                 'timestamp': datetime.utcnow().isoformat(),
                 'operation': 'move'
             }
+            
+            # Add tracking based on environment and system
+            if environment == 'production':
+                metadata['change-request-id'] = tracking_id
+                metadata['governance-level'] = 'high'
+            else:
+                if tracking_system == 'jira':
+                    metadata['jira-ticket-id'] = tracking_id
+                elif tracking_system == 'servicenow':
+                    metadata['servicenow-ticket-id'] = tracking_id
+                metadata['governance-level'] = 'standard'
+            
+            metadata['tracking-system'] = tracking_system
             
             if additional_metadata:
                 metadata.update(additional_metadata)
@@ -178,29 +198,52 @@ After implementing this approach in our production environment, we observed:
 
 ### Recommended Metadata Schema
 
-Establish a consistent metadata schema across your organization:
+Establish environment-specific metadata schemas:
 
 ```python
-STANDARD_METADATA = {
-    'change-request-id': 'CR-XXXXX',      # Required: Links to change management
+# Production Environment Schema
+PRODUCTION_METADATA = {
+    'change-request-id': 'CR-XXXXX',      # Required: Formal change request
+    'environment': 'production',          # Environment identifier
     'operator': 'username',               # Who performed the action
     'timestamp': 'ISO8601',               # When action occurred
     'purpose': 'description',             # Business justification
     'approval-status': 'approved',        # Approval workflow state
     'risk-level': 'low|medium|high',      # Risk assessment
+    'governance-level': 'high',           # Governance requirements
+    'tracking-system': 'change-request'   # System used for tracking
+}
+
+# Non-Production Environment Schema
+NONPROD_METADATA = {
+    'jira-ticket-id': 'PROJ-XXXXX',       # JIRA ticket reference
+    'servicenow-ticket-id': 'INC-XXXXX',  # ServiceNow incident/task
+    'environment': 'dev|test|staging',    # Specific environment
+    'operator': 'username',               # Who performed the action
+    'timestamp': 'ISO8601',               # When action occurred
+    'purpose': 'description',             # Business justification
+    'governance-level': 'standard',       # Reduced governance for non-prod
+    'tracking-system': 'jira|servicenow', # ITSM system used
     'department': 'team-name',            # Responsible team
     'automation': 'true|false'            # Automated vs manual operation
 }
 ```
 
-### Integration with Change Management
+### Integration with Governance Systems
 
-The key to success is integrating this approach with your existing change management processes:
+The key to success is integrating with environment-appropriate governance:
 
-1. **Change Request Creation**: Include S3 metadata requirements in change templates
-2. **Approval Workflow**: Validate that operations include proper metadata
-3. **Execution Scripts**: Standardize on metadata-aware S3 operation scripts
-4. **Monitoring**: Alert on S3 operations lacking proper metadata
+**Production Environment:**
+1. **Change Request Creation**: Include S3 metadata requirements in CAB templates
+2. **Approval Workflow**: Validate change request ID before execution
+3. **Execution Scripts**: Enforce change request metadata for prod operations
+4. **Monitoring**: Alert on production S3 operations without change requests
+
+**Non-Production Environments:**
+1. **JIRA Integration**: Link S3 operations to development/testing tickets
+2. **ServiceNow Tasks**: Associate operations with incident resolution
+3. **Lightweight Approval**: Team lead approval via ticket system
+4. **Monitoring**: Track operations by ticket ID for project correlation
 
 ## Implementation Roadmap
 
