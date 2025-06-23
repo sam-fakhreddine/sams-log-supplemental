@@ -1,6 +1,6 @@
 ---
 title: "Building This Blog: From Zero to GitHub Pages with Python & Poetry"
-date: "2024-12-23"
+date: "2025-06-21"
 description: "How I built a modern, SEO-optimized blog using Python, Poetry, GitHub Actions, and GitHub Pages - complete with dark mode and RSS feeds."
 tags: ["python", "github-pages", "poetry", "blogging", "automation", "seo"]
 ---

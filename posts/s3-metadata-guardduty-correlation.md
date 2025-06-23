@@ -1,6 +1,6 @@
 ---
 title: "Using S3 Metadata to Tame GuardDuty False Positives"
-date: "2024-12-23"
+date: "2025-06-23"
 description: "How embedding change request metadata in S3 operations can dramatically reduce security alert noise and improve incident response times."
 tags: ["aws", "s3", "guardduty", "security", "automation", "incident-response"]
 ---
