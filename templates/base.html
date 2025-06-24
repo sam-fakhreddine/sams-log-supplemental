@@ -53,9 +53,51 @@
             <a href="feed.xml">RSS</a>
         </nav>
     </header>
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+    <div class="container">
+        <aside class="sidebar">
+            {% block sidebar %}
+            {% if post is defined and post.content and '<h2' in post.content %}
+            <div class="sidebar-section">
+                <h3>Table of Contents</h3>
+                <div id="table-of-contents">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+            {% endif %}
+            
+            <div class="sidebar-section">
+                <h3>Search</h3>
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Search posts..." aria-label="Search posts">
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Blog Posts</h3>
+                <div id="post-list-sidebar">
+                    <!-- Post list will be populated by JavaScript -->
+                    <p>Loading posts...</p>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Filter by Tags</h3>
+                <div id="tag-cloud">
+                    <!-- Tags will be populated by JavaScript -->
+                    <p>Loading tags...</p>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <button id="clear-filters" class="btn">Clear Filters</button>
+            </div>
+            {% endblock %}
+        </aside>
+        
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </div>
     <footer>
         <p>&copy; {{ config.current_year }} {{ config.BLOG_TITLE }}. Built with ❤️ and Python.</p>
     </footer>

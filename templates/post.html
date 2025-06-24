@@ -12,10 +12,11 @@
         <h1>{{ post.title }}</h1>
         <div class="post-meta">
             <time datetime="{{ post.date }}">{{ post.date }}</time>
+            <span class="reading-time">{{ post.reading_time }} min read</span>
             {% if post.tags %}
             <div class="tags">
                 {% for tag in post.tags %}
-                <span class="tag">{{ tag }}</span>
+                <span class="tag" data-tag="{{ tag }}">{{ tag }}</span>
                 {% endfor %}
             </div>
             {% endif %}
@@ -26,6 +27,24 @@
         {{ post.content | safe }}
     </div>
 </article>
+
+{% if all_posts|length > 1 %}
+<div class="related-posts">
+    <h3>Related Posts</h3>
+    <ul>
+        {% for related_post in all_posts if related_post.url != post.url and (related_post.tags|length > 0 and post.tags|length > 0 and related_post.tags|intersect(post.tags)|length > 0) %}
+            {% if loop.index <= 3 %}
+            <li>
+                <a href="{{ related_post.filename }}">{{ related_post.title }}</a>
+                <div class="post-meta">{{ related_post.date }} · {{ related_post.reading_time }} min read</div>
+            </li>
+            {% endif %}
+        {% else %}
+            <li>No related posts found</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
 
 <nav>
     <p><a href="{{ config.BASE_URL }}/">← Back to posts</a></p>

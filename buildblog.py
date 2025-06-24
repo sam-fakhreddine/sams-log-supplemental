@@ -74,10 +74,15 @@ def generate_rss(posts, base_url=BASE_URL):
     return ET.tostring(rss, encoding="unicode")
 
 
+def intersect_filter(a, b):
+    """Return the intersection of two lists"""
+    return [item for item in a if item in b]
+
 def build_site():
     try:
         # Setup
         env = Environment(loader=FileSystemLoader("templates"))
+        env.filters['intersect'] = intersect_filter
         md = markdown.Markdown(
             extensions=["meta", "fenced_code", "codehilite", "toc", "tables"]
         )
@@ -115,6 +120,10 @@ def build_site():
                     html_content = md.convert(content)
                     slug = filename.replace(".md", ".html")
 
+                    # Calculate reading time (average reading speed: 200 words per minute)
+                    word_count = len(content.split())
+                    reading_time = max(1, round(word_count / 200))
+                    
                     post = {
                         "title": title,
                         "date": date,
@@ -123,6 +132,7 @@ def build_site():
                         "content": html_content,
                         "filename": slug,
                         "url": f"/{slug}",
+                        "reading_time": reading_time,
                     }
                     posts.append(post)
 
