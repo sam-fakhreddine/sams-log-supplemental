@@ -52,12 +52,14 @@ This policy is elegantly simple yet powerful. Let's break down how it works:
 ### 1. Extended Recovery Window
 
 **Before SCP:**
+
 ```bash
 # This would succeed with dangerous 7-day window
 aws kms schedule-key-deletion --key-id alias/prod-database-key --pending-window-in-days 7
 ```
 
 **After SCP:**
+
 ```bash
 # This now fails, preventing accidental short deletions
 aws kms schedule-key-deletion --key-id alias/prod-database-key --pending-window-in-days 7
@@ -136,16 +138,19 @@ While the core policy focuses on deletion windows, consider this comprehensive K
 ### Step 2: Gradual Rollout
 
 **Phase 1: Non-Production (Week 1)**
+
 - Apply SCP to development and staging OUs
 - Monitor for any legitimate use cases requiring shorter windows
 - Adjust policy if needed based on feedback
 
 **Phase 2: Production (Week 2)**
+
 - Apply SCP to production OUs
 - Communicate changes to all teams
 - Provide training on new deletion procedures
 
 **Phase 3: Organization-wide (Week 3)**
+
 - Apply SCP at root organization level
 - Document new procedures in runbooks
 - Update automation scripts to use 30+ day windows
@@ -225,12 +230,14 @@ aws kms schedule-key-deletion --key-id alias/compromised-key --pending-window-in
 Track these metrics to demonstrate the SCP's value:
 
 ### Before Implementation
+
 - Average key deletion window: 7-14 days
 - Accidental deletions per month: 2-3
 - Recovery incidents: 1-2 per quarter
 - Mean time to recovery: 4-8 hours
 
 ### After Implementation
+
 - Average key deletion window: 30+ days
 - Accidental deletions per month: 0
 - Recovery incidents: 0
