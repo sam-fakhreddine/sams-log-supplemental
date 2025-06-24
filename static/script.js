@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function updateBanner(theme) {
         const isLcars = theme === 'lcars';
+        // For now, Material 3 theme uses the default banner
         const bannerType = isLcars ? 'lcars' : 'banner';
         
         document.getElementById('banner-small').srcset = `assets/${bannerType}-small.webp`;
