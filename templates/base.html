@@ -17,6 +17,14 @@
     <link rel="sitemap" type="application/xml" href="/sitemap.xml">
     <title>{{ title_content }}</title>
     <link rel="stylesheet" href="/static/styles.css">
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || 'auto';
+            if (theme !== 'auto') {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+        })();
+    </script>
     <!-- Google Analytics - Replace with your tracking ID -->
     <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
     <script>
@@ -28,7 +36,7 @@
 </head>
 <body>
     <div class="theme-switcher">
-        <select id="theme-select">
+        <select id="theme-select" aria-label="Choose theme">
             <option value="auto">Auto</option>
             <option value="light">Light</option>
             <option value="dark">Dark</option>
@@ -59,23 +67,16 @@
     </footer>
     <script>
         const themeSelect = document.getElementById('theme-select');
-        const savedTheme = localStorage.getItem('theme') || 'auto';
-        themeSelect.value = savedTheme;
+        themeSelect.value = localStorage.getItem('theme') || 'auto';
         
-        function applyTheme(theme) {
+        themeSelect.addEventListener('change', (e) => {
+            const theme = e.target.value;
+            localStorage.setItem('theme', theme);
             if (theme === 'auto') {
                 document.documentElement.removeAttribute('data-theme');
             } else {
                 document.documentElement.setAttribute('data-theme', theme);
             }
-        }
-        
-        applyTheme(savedTheme);
-        
-        themeSelect.addEventListener('change', (e) => {
-            const theme = e.target.value;
-            localStorage.setItem('theme', theme);
-            applyTheme(theme);
         });
     </script>
 </body>

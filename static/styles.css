@@ -39,6 +39,14 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
 [data-theme="lcars"] body {
     font-family: 'Courier New', monospace;
 }
@@ -73,6 +81,12 @@ h1 {
     border: 1px solid var(--border);
     padding: 5px 10px;
     border-radius: 4px;
+    cursor: pointer;
+}
+
+.theme-switcher select:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
 }
 
 [data-theme="lcars"] .theme-switcher select {

@@ -86,6 +86,13 @@ def build_site():
             shutil.copytree('assets', 'docs/assets')
             print("✅ Copied assets to docs/assets")
         
+        # Copy static files to docs/static
+        if os.path.exists('static'):
+            if os.path.exists('docs/static'):
+                shutil.rmtree('docs/static')
+            shutil.copytree('static', 'docs/static')
+            print("✅ Copied static files to docs/static")
+        
         # Process posts
         posts = []
         posts_dir = 'posts'
