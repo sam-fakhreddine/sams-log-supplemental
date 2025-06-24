@@ -21,7 +21,8 @@ def test_site():
 
     # Test CSS loads
     try:
-        css_url = urljoin(BASE_URL, "/static/styles.css")
+        css_url = urljoin(BASE_URL, "/sams-log-supplemental/static/styles.css")
+        print(f"Testing CSS at {css_url}")
         r = requests.get(css_url, timeout=10)
         if r.status_code != 200:
             errors.append(f"CSS returned {r.status_code}")
@@ -31,8 +32,9 @@ def test_site():
         errors.append(f"CSS failed: {e}")
 
     # Test feeds
-    for feed in ["/feed.xml", "/sitemap.xml"]:
+    for feed in ["/static/feed.xml", "/sams-log-supplemental/static/sitemap.xml"]:
         try:
+            print(f"Testing feed at {BASE_URL}{feed}")
             r = requests.get(urljoin(BASE_URL, feed), timeout=10)
             if r.status_code != 200:
                 errors.append(f"{feed} returned {r.status_code}")
