@@ -30,7 +30,7 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    max-width: 800px;
+    max-width: 990px;
     margin: 0 auto;
     padding: 20px;
     line-height: 1.6;
@@ -289,8 +289,8 @@ th {
     }
 }
 
-@media (min-width: 801px) {
+@media (min-width: 991px) {
     body {
-        width: 800px;
+        width: 990px;
     }
 }
