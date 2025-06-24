@@ -23,6 +23,8 @@
             if (theme !== 'auto') {
                 document.documentElement.setAttribute('data-theme', theme);
             }
+            // Set initial banner based on theme
+            window.initialTheme = theme;
         })();
     </script>
     <!-- Google Analytics - Replace with your tracking ID -->
@@ -45,10 +47,10 @@
     </div>
     <header>
         <div class="banner">
-            <picture>
-                <source media="(max-width: 600px)" srcset="assets/banner-small.webp">
-                <source media="(max-width: 1000px)" srcset="assets/banner-medium.webp">
-                <img src="assets/banner-large.webp" alt="Sam's Log Supplemental Banner" class="banner-img">
+            <picture id="banner-picture">
+                <source media="(max-width: 600px)" srcset="{{ config.BASE_URL }}/assets/banner-small.webp" id="banner-small">
+                <source media="(max-width: 1000px)" srcset="{{ config.BASE_URL }}/assets/banner-medium.webp" id="banner-medium">
+                <img src="{{ config.BASE_URL }}/assets/banner-large.webp" alt="Sam's Log Supplemental Banner" class="banner-img" id="banner-large">
             </picture>
             <div class="banner-overlay">
                 <h1><a href="{{ config.BASE_URL }}/">{{ config.BLOG_TITLE }}</a></h1>
@@ -69,15 +71,30 @@
         const themeSelect = document.getElementById('theme-select');
         themeSelect.value = localStorage.getItem('theme') || 'auto';
         
+        function updateBanner(theme) {
+            const baseUrl = '{{ config.BASE_URL }}';
+            const isLcars = theme === 'lcars';
+            const bannerType = isLcars ? 'lcars' : 'banner';
+            
+            document.getElementById('banner-small').srcset = `${baseUrl}/assets/${bannerType}-small.webp`;
+            document.getElementById('banner-medium').srcset = `${baseUrl}/assets/${bannerType}-medium.webp`;
+            document.getElementById('banner-large').src = `${baseUrl}/assets/${bannerType}-large.webp`;
+        }
+        
         themeSelect.addEventListener('change', (e) => {
             const theme = e.target.value;
             localStorage.setItem('theme', theme);
             if (theme === 'auto') {
                 document.documentElement.removeAttribute('data-theme');
+                updateBanner('auto');
             } else {
                 document.documentElement.setAttribute('data-theme', theme);
+                updateBanner(theme);
             }
         });
+        
+        // Update banner on page load
+        updateBanner(window.initialTheme || themeSelect.value);
     </script>
 </body>
 </html>
