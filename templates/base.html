@@ -16,7 +16,7 @@
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/feed.xml">
     <link rel="sitemap" type="application/xml" href="/sitemap.xml">
     <title>{{ title_content }}</title>
-    <link rel="stylesheet" href="{{ config.BASE_URL }}/static/styles.css">
+    <link rel="stylesheet" href="/static/styles.css">
     <script>
         (function() {
             const theme = localStorage.getItem('theme') || 'auto';
@@ -48,9 +48,9 @@
     <header>
         <div class="banner">
             <picture id="banner-picture">
-                <source media="(max-width: 600px)" srcset="{{ config.BASE_URL }}/assets/banner-small.webp" id="banner-small">
-                <source media="(max-width: 1000px)" srcset="{{ config.BASE_URL }}/assets/banner-medium.webp" id="banner-medium">
-                <img src="{{ config.BASE_URL }}/assets/banner-large.webp" alt="Sam's Log Supplemental Banner" class="banner-img" id="banner-large">
+                <source media="(max-width: 600px)" srcset="/assets/banner-small.webp" id="banner-small">
+                <source media="(max-width: 1000px)" srcset="/assets/banner-medium.webp" id="banner-medium">
+                <img src="/assets/banner-large.webp" alt="Sam's Log Supplemental Banner" class="banner-img" id="banner-large">
             </picture>
             <div class="banner-overlay">
                 <h1><a href="{{ config.BASE_URL }}/">{{ config.BLOG_TITLE }}</a></h1>
@@ -72,13 +72,12 @@
         themeSelect.value = localStorage.getItem('theme') || 'auto';
         
         function updateBanner(theme) {
-            const baseUrl = '{{ config.BASE_URL }}';
             const isLcars = theme === 'lcars';
             const bannerType = isLcars ? 'lcars' : 'banner';
             
-            document.getElementById('banner-small').srcset = `${baseUrl}/assets/${bannerType}-small.webp`;
-            document.getElementById('banner-medium').srcset = `${baseUrl}/assets/${bannerType}-medium.webp`;
-            document.getElementById('banner-large').src = `${baseUrl}/assets/${bannerType}-large.webp`;
+            document.getElementById('banner-small').srcset = `/assets/${bannerType}-small.webp`;
+            document.getElementById('banner-medium').srcset = `/assets/${bannerType}-medium.webp`;
+            document.getElementById('banner-large').src = `/assets/${bannerType}-large.webp`;
         }
         
         themeSelect.addEventListener('change', (e) => {
