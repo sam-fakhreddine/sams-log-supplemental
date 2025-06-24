@@ -1,8 +1,8 @@
 ---
 title: "Building This Blog: From Zero to GitHub Pages with Python & Poetry"
 date: "2025-06-21"
-description: "How I built a modern, SEO-optimized blog using Python, Poetry, GitHub Actions, and GitHub Pages - complete with dark mode and RSS feeds."
-tags: ["python", "github-pages", "poetry", "blogging", "automation", "seo"]
+description: "How I built a modern, SEO-optimized blog using Python, Poetry, GitHub Actions, and GitHub Pages - complete with dark mode, theme switching, and RSS feeds."
+tags: ["python", "github-pages", "poetry", "blogging", "automation", "seo", "dark-mode"]
 ---
 
 # Building This Blog: From Zero to GitHub Pages
@@ -34,11 +34,16 @@ I wanted a simple, fast blog that could:
 
 ```toml
 [tool.poetry.dependencies]
-python = "^3.9"
-markdown = "^3.5.1"
+python = "^3.11"
+markdown = "^3.8.2"
 jinja2 = "^3.1.2"
 python-frontmatter = "^1.0.1"
 pytz = "^2023.3"
+requests = "^2.32.4"
+
+[tool.poetry.group.dev.dependencies]
+black = "^25.0.0"
+flake8 = "^7.0.0"
 ```
 
 ## 🏗️ Architecture Overview
@@ -52,18 +57,30 @@ The blog follows a simple static site generator pattern:
 
 ```python
 def build_site():
+    # Setup Markdown with extensions
+    md = markdown.Markdown(
+        extensions=["meta", "fenced_code", "codehilite", "toc", "tables"]
+    )
+    
     # Process markdown posts with frontmatter
     posts = []
-    for filename in os.listdir('posts'):
+    for filename in sorted(os.listdir('posts')):
         if filename.endswith('.md'):
             title, date, description, tags, content = extract_metadata(filepath)
-            html_content = markdown.convert(content)
+            html_content = md.convert(content)
             posts.append({
                 'title': title,
                 'content': html_content,
                 'date': date,
-                # ... more metadata
+                'description': description,
+                'tags': tags,
+                'filename': filename.replace('.md', '.html'),
+                'url': f"/{filename.replace('.md', '.html')}"
             })
+    
+    # Copy assets and static files
+    shutil.copytree("assets", "docs/assets")
+    shutil.copytree("static", "docs/static")
     
     # Generate pages, sitemap, RSS feed
     generate_index(posts)
@@ -90,41 +107,67 @@ def build_site():
 
 ### Design & UX
 
-- **Dark mode** with system preference detection
-- **Mobile-responsive** design
-- **Fast loading** with optimized CSS
+- **Advanced theme system** with auto/light/dark modes and LCARS theme
+- **Dynamic banner switching** based on selected theme
+- **Local storage** theme persistence
+- **Mobile-responsive** design with optimized images (WebP format)
+- **Fast loading** with optimized CSS and minimal JavaScript
 - **Accessible** markup and contrast
 
 ### Developer Experience
 
-- **Poetry** for dependency management
-- **GitHub Actions** for automated deployment
-- **Error handling** and build validation
-- **Local development** workflow
+- **Poetry** for dependency management with dev dependencies
+- **GitHub Actions** with advanced caching and validation
+- **Comprehensive error handling** and build validation
+- **Local development** workflow with live testing
+- **Code formatting** with Black and Flake8
+- **Post validation** in CI pipeline
 
 ## 🚀 Deployment Pipeline
 
-The GitHub Actions workflow is beautifully simple:
+The GitHub Actions workflow includes advanced features:
 
 ```yaml
+- name: Setup Python
+  uses: actions/setup-python@v5
+  with:
+    python-version: '3.13'
+    cache: 'pip'
+
 - name: Install Poetry
   uses: snok/install-poetry@v1
+  with:
+    version: latest
+    virtualenvs-create: true
+    virtualenvs-in-project: true
 
-- name: Install dependencies
-  run: poetry install --only=main
+- name: Load cached venv
+  uses: actions/cache@v4
+  with:
+    path: .venv
+    key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+
+- name: Validate posts
+  run: |
+    find posts -name "*.md" -exec poetry run python -c "import frontmatter; frontmatter.load(open('{}'))" \;
 
 - name: Build site
-  run: poetry run python build.py
+  run: poetry run python buildblog.py
 
-- name: Deploy to GitHub Pages
-  uses: actions/deploy-pages@v2
+- name: Test deployed site
+  run: python test_site.py
 ```
 
 Every push to `main` triggers:
 
-1. Content validation
-2. Site building
-3. Deployment to GitHub Pages
+1. Python 3.13 setup with pip caching
+2. Poetry installation with virtual environment caching
+3. Dependency caching for faster builds
+4. Markdown post validation
+5. Site building with error handling
+6. Build artifact validation
+7. Deployment to GitHub Pages
+8. Live site testing
 
 ## 💡 Key Decisions
 
@@ -133,58 +176,70 @@ Every push to `main` triggers:
 - Full control over the build process
 - Easy to extend and customize
 - Familiar tooling and ecosystem
+- Advanced Markdown processing with multiple extensions
 
 **Why Poetry over pip?**
 
 - Better dependency resolution
 - Lock files for reproducible builds
 - Modern Python packaging standards
+- Separate dev dependencies for cleaner production builds
 
 **Why GitHub Pages?**
 
-- Free hosting
-- Automatic HTTPS
+- Free hosting with excellent uptime
+- Automatic HTTPS and CDN
 - Integrated with GitHub Actions
 - Custom domain support
+- Built-in artifact management
 
 ## 📊 Performance Results
 
 The generated site is lightning fast:
 
-- **Minimal CSS** - No frameworks, just custom properties
-- **Static HTML** - No JavaScript required
-- **Optimized images** - Responsive and properly sized
-- **Clean markup** - Semantic and accessible
+- **Minimal CSS** - No frameworks, just custom properties with CSS variables
+- **Progressive enhancement** - Core functionality works without JavaScript
+- **Smart JavaScript** - Theme switching with localStorage persistence
+- **Optimized images** - WebP format with responsive sizing
+- **Clean markup** - Semantic HTML5 with proper accessibility
+- **Advanced caching** - Build-time optimizations and GitHub Actions caching
 
 ## 🔮 Future Enhancements
 
 Some ideas for future iterations:
 
 - **Search functionality** with client-side indexing
-- **Comment system** integration
-- **Analytics dashboard**
+- **Comment system** integration (GitHub Discussions)
+- **Analytics dashboard** with privacy-focused tracking
 - **Newsletter signup** automation
-- **Image optimization** pipeline
+- **Additional themes** beyond LCARS
+- **Content management** improvements
+- **Performance monitoring** integration
 
 ## 🎉 The Result
 
-In less than an hour, we went from empty directory to fully functional blog with:
+The blog has evolved into a sophisticated static site generator with:
 
-- ✅ Professional design with dark mode
-- ✅ SEO optimization
-- ✅ RSS feed
-- ✅ Mobile responsive
-- ✅ Automated deployment
-- ✅ Modern Python tooling
+- ✅ Advanced theme system (auto/light/dark/LCARS)
+- ✅ Dynamic banner switching
+- ✅ Comprehensive SEO optimization
+- ✅ RSS feed with proper metadata
+- ✅ Mobile responsive with WebP images
+- ✅ Robust CI/CD pipeline with caching
+- ✅ Modern Python tooling with dev dependencies
+- ✅ Content validation and error handling
+- ✅ Live site testing
 
 The entire setup is maintainable, extensible, and follows current best practices. Most importantly, it gets out of the way and lets me focus on writing.
 
 ## 🔗 Resources
 
-- **Repository**: [sam-fakhreddine/sams-log-supplemental](https://github.com/sam-fakhreddine/sams-log-supplemental)
-- **Live Site**: [sam-fakhreddine.github.io/sams-log-supplemental](https://sam-fakhreddine.github.io/sams-log-supplemental)
+- **Repository**: [sam-fakhreddine/thingsBlog](https://github.com/sam-fakhreddine/thingsBlog)
+- **Live Site**: [sam-fakhreddine.github.io/thingsBlog](https://sam-fakhreddine.github.io/thingsBlog)
 - **Poetry**: [python-poetry.org](https://python-poetry.org)
 - **GitHub Pages**: [pages.github.com](https://pages.github.com)
+- **GitHub Actions**: [docs.github.com/actions](https://docs.github.com/actions)
+- **Markdown Extensions**: [python-markdown.github.io](https://python-markdown.github.io)
 
 ---
 
