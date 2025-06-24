@@ -1,6 +1,6 @@
 ---
 title: "Protecting Your AWS KMS Keys: The 30-Day Deletion Window SCP"
-date: "2024-12-19"
+date: "2025-06-24"
 description: "How a simple Service Control Policy can prevent accidental KMS key deletions and save your organization from catastrophic data loss scenarios."
 tags: ["aws", "kms", "scp", "security", "governance", "encryption", "compliance"]
 ---
