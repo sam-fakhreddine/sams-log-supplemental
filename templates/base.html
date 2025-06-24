@@ -13,10 +13,10 @@
     <meta property="og:url" content="{% block og_url %}{{ config.BASE_URL }}{% endblock %}">
     <meta name="twitter:card" content="summary">
     <link rel="canonical" href="{% block canonical %}{{ config.BASE_URL }}{% endblock %}">
-    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/feed.xml">
-    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="feed.xml">
+    <link rel="sitemap" type="application/xml" href="sitemap.xml">
     <title>{{ title_content }}</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="static/styles.css">
     <script>
         (function() {
             const theme = localStorage.getItem('theme') || 'auto';
@@ -48,16 +48,16 @@
     <header>
         <div class="banner">
             <picture id="banner-picture">
-                <source media="(max-width: 600px)" srcset="/assets/banner-small.webp" id="banner-small">
-                <source media="(max-width: 1000px)" srcset="/assets/banner-medium.webp" id="banner-medium">
-                <img src="/assets/banner-large.webp" alt="Sam's Log Supplemental Banner" class="banner-img" id="banner-large">
+                <source media="(max-width: 600px)" srcset="assets/banner-small.webp" id="banner-small">
+                <source media="(max-width: 1000px)" srcset="assets/banner-medium.webp" id="banner-medium">
+                <img src="assets/banner-large.webp" alt="Sam's Log Supplemental Banner" class="banner-img" id="banner-large">
             </picture>
             <div class="banner-overlay">
-                <h1><a href="{{ config.BASE_URL }}/">{{ config.BLOG_TITLE }}</a></h1>
+                <h1><a href="./">{{ config.BLOG_TITLE }}</a></h1>
             </div>
         </div>
         <nav>
-            <a href="{{ config.BASE_URL }}/">Home</a> | 
+            <a href="./">Home</a> | 
             <a href="feed.xml">RSS</a>
         </nav>
     </header>
@@ -75,9 +75,9 @@
             const isLcars = theme === 'lcars';
             const bannerType = isLcars ? 'lcars' : 'banner';
             
-            document.getElementById('banner-small').srcset = `/assets/${bannerType}-small.webp`;
-            document.getElementById('banner-medium').srcset = `/assets/${bannerType}-medium.webp`;
-            document.getElementById('banner-large').src = `/assets/${bannerType}-large.webp`;
+            document.getElementById('banner-small').srcset = `assets/${bannerType}-small.webp`;
+            document.getElementById('banner-medium').srcset = `assets/${bannerType}-medium.webp`;
+            document.getElementById('banner-large').src = `assets/${bannerType}-large.webp`;
         }
         
         themeSelect.addEventListener('change', (e) => {
