@@ -1,15 +1,16 @@
-# 🚀 Enhanced GitHub Pages Blog
+# 🚀 Sam's Log Supplemental
 
-A professional blog setup with SEO, RSS, dark mode, and best practices built-in.
+A modern, SEO-optimized blog built with Python, Poetry, and GitHub Pages featuring multiple themes and responsive design.
 
 ## ✨ Features
 
-- **SEO Optimized** - Meta tags, sitemap, RSS feed
-- **Dark Mode** - Automatic theme switching
-- **Mobile Responsive** - Works perfectly on all devices
-- **Frontmatter Support** - Rich post metadata
-- **Error Handling** - Robust build process
-- **Performance** - Optimized CSS and fast loading
+- **Multi-Theme Support** - Light, Dark, and LCARS themes with auto-detection
+- **SEO Optimized** - Meta tags, sitemap, RSS feed, canonical URLs
+- **Mobile Responsive** - 990px desktop width, optimized for all devices
+- **External Assets** - Separate CSS and JavaScript files for better caching
+- **Frontmatter Support** - Rich post metadata with tags
+- **Error Handling** - Robust build process with validation
+- **Performance** - Optimized loading with WebP images
 - **Analytics Ready** - Google Analytics integration
 - **Social Sharing** - Open Graph and Twitter Cards
 
@@ -51,9 +52,10 @@ curl -sSL https://install.python-poetry.org | python3 -
 poetry install
 
 # Build site
-poetry run python build.py
-# Or use the script shortcut:
-poetry run build
+poetry run python buildblog.py
+
+# Test site
+poetry run python test_site.py
 
 # View locally
 open docs/index.html
@@ -64,11 +66,19 @@ open docs/index.html
 ```
 ├── posts/              # Markdown blog posts
 ├── templates/          # Jinja2 HTML templates
-├── build.py           # Static site generator
+│   ├── base.html      # Main template with external JS/CSS
+│   ├── index.html     # Homepage template
+│   └── post.html      # Individual post template
+├── static/            # Static assets
+│   ├── styles.css     # Main stylesheet with theme support
+│   └── script.js      # Theme switching and banner logic
+├── assets/            # Images and media
+├── buildblog.py       # Static site generator
+├── test_site.py       # Site validation tests
 ├── config.py          # Blog configuration
 ├── pyproject.toml     # Poetry dependencies & config
-├── .github/workflows/ # GitHub Actions
-└── docs/             # Generated site (auto-created)
+├── .github/workflows/ # GitHub Actions CI/CD
+└── docs/             # Generated site (GitHub Pages)
 ```
 
 ## 🎯 Best Practices Included
@@ -82,8 +92,17 @@ open docs/index.html
 
 ## 🔧 Customization
 
+### Themes
+Three built-in themes with CSS custom properties:
+- **Light** - Clean, professional appearance
+- **Dark** - Easy on the eyes for night reading
+- **LCARS** - Star Trek inspired retro-futuristic design
+
 ### Styling
-Edit CSS in `templates/base.html` - uses CSS custom properties for easy theming.
+Edit `static/styles.css` - uses CSS custom properties for easy theming and 990px desktop width.
+
+### JavaScript
+Theme switching and banner logic in `static/script.js` with proper DOM ready handling.
 
 ### Analytics
 Uncomment Google Analytics code in `templates/base.html` and add your tracking ID.
@@ -100,11 +119,12 @@ Update `config.py` with your social media profiles.
 
 ## 🚀 Deployment
 
-Every push to `main` triggers:
-1. Content validation
-2. Site building
-3. Build verification
-4. Automatic deployment
+Every push to `main` triggers GitHub Actions workflow:
+1. Poetry dependency installation
+2. Site building with `buildblog.py`
+3. Site validation with `test_site.py`
+4. Automatic deployment to GitHub Pages
+5. Tests for CSS, RSS feed, and sitemap availability
 
 ## 📈 SEO Features
 
