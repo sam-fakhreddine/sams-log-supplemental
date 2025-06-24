@@ -16,38 +16,7 @@
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/feed.xml">
     <link rel="sitemap" type="application/xml" href="/sitemap.xml">
     <title>{{ title_content }}</title>
-    <style>
-        :root { --primary: #0066cc; --text: #333; --bg: #fff; --border: #eee; --code-bg: #f5f5f5; }
-        @media (prefers-color-scheme: dark) {
-            :root { --primary: #4da6ff; --text: #e0e0e0; --bg: #1a1a1a; --border: #333; --code-bg: #2d2d2d; }
-        }
-        * { box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; background: var(--bg); color: var(--text); }
-        h1, h2, h3 { color: var(--text); margin-top: 2em; }
-        h1 { margin-top: 0; }
-        .banner { position: relative; margin-bottom: 20px; }
-        .banner-img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; }
-        @media (max-width: 600px) { .banner-img { height: 100px; } }
-        .banner-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.7)); padding: 20px; border-radius: 0 0 8px 8px; }
-        .banner-overlay h1 { margin: 0; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
-        .banner-overlay h1 a { color: white; }
-        .post-meta { color: #666; font-size: 0.9em; margin-bottom: 1em; }
-        .post-list { list-style: none; padding: 0; }
-        .post-list li { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
-        .tags { margin-top: 0.5em; }
-        .tag { display: inline-block; background: var(--code-bg); padding: 2px 8px; margin: 2px; border-radius: 12px; font-size: 0.8em; }
-        a { color: var(--primary); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        pre { background: var(--code-bg); padding: 15px; border-radius: 5px; overflow-x: auto; }
-        code { background: var(--code-bg); padding: 2px 4px; border-radius: 3px; }
-        pre code { background: none; padding: 0; }
-        img { max-width: 100%; height: auto; }
-        table { width: 100%; border-collapse: collapse; margin: 1em 0; }
-        th, td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
-        th { background: var(--code-bg); }
-        .toc { background: var(--code-bg); padding: 15px; border-radius: 5px; margin: 1em 0; }
-        @media (max-width: 600px) { body { padding: 10px; } h1 { font-size: 1.5em; } }
-    </style>
+    <link rel="stylesheet" href="/static/styles.css">
     <!-- Google Analytics - Replace with your tracking ID -->
     <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
     <script>
@@ -58,6 +27,14 @@
     </script> -->
 </head>
 <body>
+    <div class="theme-switcher">
+        <select id="theme-select">
+            <option value="auto">Auto</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+            <option value="lcars">LCARS</option>
+        </select>
+    </div>
     <header>
         <div class="banner">
             <picture>
@@ -80,5 +57,26 @@
     <footer>
         <p>&copy; {{ config.current_year }} {{ config.BLOG_TITLE }}. Built with ❤️ and Python.</p>
     </footer>
+    <script>
+        const themeSelect = document.getElementById('theme-select');
+        const savedTheme = localStorage.getItem('theme') || 'auto';
+        themeSelect.value = savedTheme;
+        
+        function applyTheme(theme) {
+            if (theme === 'auto') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+        }
+        
+        applyTheme(savedTheme);
+        
+        themeSelect.addEventListener('change', (e) => {
+            const theme = e.target.value;
+            localStorage.setItem('theme', theme);
+            applyTheme(theme);
+        });
+    </script>
 </body>
 </html>
