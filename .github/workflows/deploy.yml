@@ -40,9 +40,10 @@ jobs:
     
     - name: Install dependencies
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-      run: |
-        poetry install --only=main --no-root
-        poetry add requests
+      run: poetry install --only=main --no-root
+    
+    - name: Install test dependencies
+      run: pip install requests
     
     - name: Validate posts
       run: |
@@ -74,4 +75,4 @@ jobs:
     - name: Test deployed site
       run: |
         sleep 30  # Wait for deployment
-        poetry run python test_site.py
+        python test_site.py
