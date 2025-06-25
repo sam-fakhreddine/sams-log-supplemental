@@ -184,6 +184,26 @@ def build_site():
         with open("docs/index.html", "w", encoding="utf-8") as f:
             f.write(index_html)
 
+        # Generate 404 page
+        error_template = env.get_template("404.html")
+        error_html = error_template.render(
+            posts=posts,
+            config={
+                "BLOG_TITLE": BLOG_TITLE,
+                "BLOG_DESCRIPTION": BLOG_DESCRIPTION,
+                "BLOG_AUTHOR": BLOG_AUTHOR,
+                "BASE_URL": BASE_URL,
+                "current_year": datetime.now().year,
+                "GOOGLE_ADSENSE_ID": GOOGLE_ADSENSE_ID,
+                "BUY_ME_COFFEE_USERNAME": BUY_ME_COFFEE_USERNAME,
+                "AMAZON_ASSOCIATE_TAG": AMAZON_ASSOCIATE_TAG,
+                "ENABLE_NEWSLETTER": ENABLE_NEWSLETTER,
+            },
+        )
+
+        with open("docs/404.html", "w", encoding="utf-8") as f:
+            f.write(error_html)
+
         # Generate sitemap
         sitemap_xml = generate_sitemap(posts)
         with open("docs/sitemap.xml", "w", encoding="utf-8") as f:

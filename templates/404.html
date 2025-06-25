@@ -1,0 +1,263 @@
+{% extends "base.html" %}
+
+{% block title %}404 - Page Not Found | Sam's Log Supplemental{% endblock %}
+{% block description %}The page you're looking for doesn't exist. Explore our latest posts or search for what you need.{% endblock %}
+
+{% block content %}
+<article class="error-page">
+    <div class="error-content">
+        <div class="error-code">404</div>
+        <h1>Page Not Found</h1>
+        <p class="error-message">
+            The page you're looking for seems to have vanished into the digital void. 
+            Perhaps it was deleted, moved, or never existed in the first place.
+        </p>
+        
+        <div class="error-actions">
+            <a href="./" class="btn btn-primary">← Back to Home</a>
+            <button onclick="history.back()" class="btn btn-secondary">Go Back</button>
+        </div>
+        
+        <div class="search-section">
+            <h2>Search for Content</h2>
+            <div class="search-container">
+                <input type="text" id="error-search" placeholder="Search posts..." aria-label="Search posts">
+                <div id="search-results"></div>
+            </div>
+        </div>
+        
+        <div class="recent-posts">
+            <h2>Recent Posts</h2>
+            <div class="post-grid">
+                {% for post in posts[:3] %}
+                <div class="post-card">
+                    <h3><a href="{{ post.filename }}">{{ post.title }}</a></h3>
+                    <p class="post-meta">{{ post.date }} • {{ post.reading_time }} min read</p>
+                    <p class="post-excerpt">{{ post.description or post.title }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</article>
+
+<style>
+.error-page {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.error-code {
+    font-size: 8rem;
+    font-weight: bold;
+    color: var(--accent-color, #007acc);
+    line-height: 1;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.error-page h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.error-message {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.error-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: var(--accent-color, #007acc);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-hover, #005a99);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: var(--bg-secondary, #f5f5f5);
+    color: var(--text-color);
+    border: 1px solid var(--border-color, #ddd);
+}
+
+.btn-secondary:hover {
+    background-color: var(--bg-hover, #e9e9e9);
+    transform: translateY(-2px);
+}
+
+.search-section {
+    margin-bottom: 3rem;
+}
+
+.search-section h2 {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.search-container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+#error-search {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color, #ddd);
+    border-radius: 4px;
+    font-size: 1rem;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+#error-search:focus {
+    outline: none;
+    border-color: var(--accent-color, #007acc);
+    box-shadow: 0 0 0 2px rgba(0, 122, 204, 0.2);
+}
+
+.recent-posts h2 {
+    margin-bottom: 2rem;
+    color: var(--text-color);
+}
+
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.post-card {
+    background: var(--bg-secondary, #f9f9f9);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color, #eee);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.post-card h3 {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.post-card h3 a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.post-card h3 a:hover {
+    color: var(--accent-color, #007acc);
+}
+
+.post-meta {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.post-excerpt {
+    color: var(--text-secondary);
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+    .error-code {
+        font-size: 6rem;
+    }
+    
+    .error-page h1 {
+        font-size: 2rem;
+    }
+    
+    .error-message {
+        font-size: 1.1rem;
+        padding: 0 1rem;
+    }
+    
+    .error-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .post-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+}
+</style>
+
+<script>
+// Enhanced search functionality for 404 page
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('error-search');
+    const searchResults = document.getElementById('search-results');
+    
+    if (searchInput && typeof window.searchPosts === 'function') {
+        searchInput.addEventListener('input', function() {
+            const query = this.value.trim();
+            if (query.length > 2) {
+                const results = window.searchPosts(query);
+                displaySearchResults(results.slice(0, 5)); // Show top 5 results
+            } else {
+                searchResults.innerHTML = '';
+            }
+        });
+    }
+    
+    function displaySearchResults(results) {
+        if (results.length === 0) {
+            searchResults.innerHTML = '<p style="color: var(--text-secondary); margin-top: 1rem;">No posts found</p>';
+            return;
+        }
+        
+        const resultsHTML = results.map(post => `
+            <div style="text-align: left; padding: 0.5rem; border-bottom: 1px solid var(--border-color); margin-top: 1rem;">
+                <a href="${post.filename}" style="color: var(--accent-color); text-decoration: none; font-weight: 500;">
+                    ${post.title}
+                </a>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0.25rem 0;">
+                    ${post.description || post.title}
+                </p>
+            </div>
+        `).join('');
+        
+        searchResults.innerHTML = `<div style="border: 1px solid var(--border-color); border-radius: 4px; margin-top: 1rem; max-height: 300px; overflow-y: auto;">${resultsHTML}</div>`;
+    }
+});
+</script>
+{% endblock %}
