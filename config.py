@@ -10,6 +10,12 @@ TIMEZONE = "UTC"
 DEFAULT_OG_IMAGE = "assets/image.png"  # Add your default social media image
 GOOGLE_ANALYTICS_ID = None  # Replace with "GA_TRACKING_ID" when ready
 
+# Monetization Settings
+GOOGLE_ADSENSE_ID = None  # Replace with "ca-pub-XXXXXXXXXX" when ready
+BUY_ME_COFFEE_USERNAME = None  # Replace with your Buy Me a Coffee username
+AMAZON_ASSOCIATE_TAG = None  # Replace with your Amazon Associates tag
+ENABLE_NEWSLETTER = False  # Set to True to enable newsletter signup
+
 # Social Links (optional)
 SOCIAL_LINKS = {
     "github": "https://github.com/sam-fakhreddine",
