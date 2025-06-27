@@ -7,6 +7,10 @@ tags: ["aws", "vpc", "security", "python", "network-analysis", "flow-logs", "fas
 
 # investiGATOR: A Comprehensive AWS VPC Flow Log Analysis Tool
 
+<div align="center">
+  <img src="assets/investigator.webp" alt="investiGATOR Logo" width="200" height="200">
+</div>
+
 Network security in AWS requires deep visibility into traffic patterns, connection attempts, and potential threats. Manual analysis of VPC Flow Logs is time-consuming and error-prone. That's why I built **investiGATOR** - a comprehensive tool that transforms raw VPC Flow Log data into actionable security intelligence.
 
 ## 🎯 The Problem: VPC Flow Log Analysis at Scale
