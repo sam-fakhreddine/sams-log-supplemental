@@ -9,6 +9,7 @@ TIMEZONE = "UTC"
 # SEO Settings
 DEFAULT_OG_IMAGE = "assets/image.png"  # Add your default social media image
 GOOGLE_ANALYTICS_ID = None  # Replace with "GA_TRACKING_ID" when ready
+GOOGLE_TAG_MANAGER_ID = "GTM-TVH6X6PC"  # Google Tag Manager ID
 
 # Monetization Settings
 GOOGLE_ADSENSE_ID = None  # Replace with "ca-pub-XXXXXXXXXX" when ready

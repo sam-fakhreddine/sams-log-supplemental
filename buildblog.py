@@ -10,7 +10,7 @@ import xml.etree.ElementTree as ET
 from urllib.parse import quote
 from config import (
     BLOG_TITLE, BLOG_DESCRIPTION, BLOG_AUTHOR, BASE_URL, POSTS_PER_PAGE, TIMEZONE,
-    DEFAULT_OG_IMAGE, GOOGLE_ANALYTICS_ID, SOCIAL_LINKS,
+    DEFAULT_OG_IMAGE, GOOGLE_ANALYTICS_ID, GOOGLE_TAG_MANAGER_ID, SOCIAL_LINKS,
     GOOGLE_ADSENSE_ID, BUY_ME_COFFEE_USERNAME, AMAZON_ASSOCIATE_TAG, ENABLE_NEWSLETTER
 )
 
@@ -162,6 +162,7 @@ def build_site():
                             "BLOG_AUTHOR": BLOG_AUTHOR,
                             "BASE_URL": BASE_URL,
                             "current_year": datetime.now().year,
+                            "GOOGLE_TAG_MANAGER_ID": GOOGLE_TAG_MANAGER_ID,
                             "GOOGLE_ADSENSE_ID": GOOGLE_ADSENSE_ID,
                             "BUY_ME_COFFEE_USERNAME": BUY_ME_COFFEE_USERNAME,
                             "AMAZON_ASSOCIATE_TAG": AMAZON_ASSOCIATE_TAG,
@@ -185,6 +186,7 @@ def build_site():
                 "BLOG_AUTHOR": BLOG_AUTHOR,
                 "BASE_URL": BASE_URL,
                 "current_year": datetime.now().year,
+                "GOOGLE_TAG_MANAGER_ID": GOOGLE_TAG_MANAGER_ID,
                 "GOOGLE_ADSENSE_ID": GOOGLE_ADSENSE_ID,
                 "BUY_ME_COFFEE_USERNAME": BUY_ME_COFFEE_USERNAME,
                 "AMAZON_ASSOCIATE_TAG": AMAZON_ASSOCIATE_TAG,
@@ -205,6 +207,7 @@ def build_site():
                 "BLOG_AUTHOR": BLOG_AUTHOR,
                 "BASE_URL": BASE_URL,
                 "current_year": datetime.now().year,
+                "GOOGLE_TAG_MANAGER_ID": GOOGLE_TAG_MANAGER_ID,
                 "GOOGLE_ADSENSE_ID": GOOGLE_ADSENSE_ID,
                 "BUY_ME_COFFEE_USERNAME": BUY_ME_COFFEE_USERNAME,
                 "AMAZON_ASSOCIATE_TAG": AMAZON_ASSOCIATE_TAG,
