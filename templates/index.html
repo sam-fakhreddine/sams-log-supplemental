@@ -2,27 +2,56 @@
 
 {% block description %}Latest posts from my blog - technology, programming, and ideas{% endblock %}
 
+{% block schema_type %}Blog{% endblock %}
+{% block schema_extra %},
+      "blogPost": [
+        {% for post in posts %}
+        {
+          "@type": "BlogPosting",
+          "headline": "{{ post.title }}",
+          "description": "{{ post.description or post.title }}",
+          "url": "{{ config.BASE_URL }}/{{ post.filename }}",
+          "datePublished": "{{ post.date }}T00:00:00Z",
+          "author": {
+            "@type": "Person",
+            "name": "{{ config.BLOG_AUTHOR }}"
+          },
+          "keywords": [{% for tag in post.tags %}"{{ tag }}"{% if not loop.last %}, {% endif %}{% endfor %}]
+        }{% if not loop.last %},{% endif %}
+        {% endfor %}
+      ]{% endblock %}
+
 {% block content %}
-<h2>All Posts</h2>
+<h1>Latest Posts</h1>
 {% if posts %}
-<ul class="post-list">
+<section itemscope itemtype="https://schema.org/Blog">
+<ul class="post-list" role="list">
     {% for post in posts %}
-    <li>
-        <h3><a href="{{ post.filename }}">{{ post.title }}</a></h3>
-        <div class="post-meta">{{ post.date }} · {{ post.reading_time }} min read</div>
-        {% if post.description %}
-        <p>{{ post.description }}</p>
-        {% endif %}
-        {% if post.tags %}
-        <div class="tags">
-            {% for tag in post.tags %}
-            <span class="tag" data-tag="{{ tag }}">{{ tag }}</span>
-            {% endfor %}
-        </div>
-        {% endif %}
+    <li itemscope itemtype="https://schema.org/BlogPosting">
+        <article>
+            <h2 itemprop="headline"><a href="{{ post.filename }}" itemprop="url">{{ post.title }}</a></h2>
+            <div class="post-meta">
+                <time datetime="{{ post.date }}T00:00:00Z" itemprop="datePublished">{{ post.date }}</time>
+                <span itemprop="timeRequired" content="PT{{ post.reading_time }}M"> · {{ post.reading_time }} min read</span>
+                <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <meta itemprop="name" content="{{ config.BLOG_AUTHOR }}">
+                </span>
+            </div>
+            {% if post.description %}
+            <p itemprop="description">{{ post.description }}</p>
+            {% endif %}
+            {% if post.tags %}
+            <div class="tags">
+                {% for tag in post.tags %}
+                <span class="tag" data-tag="{{ tag }}" itemprop="keywords">{{ tag }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </article>
     </li>
     {% endfor %}
 </ul>
+</section>
 {% else %}
 <p>No posts yet. Create your first post in the <code>posts/</code> directory!</p>
 <p>Posts should include frontmatter like:</p>

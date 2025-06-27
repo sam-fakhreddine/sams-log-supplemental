@@ -6,17 +6,56 @@
     {% set desc_content %}{% block description %}A blog about technology, programming, and ideas{% endblock %}{% endset -%}
     {% set title_content %}{% block title %}Sam's Log Supplemental{% endblock %}{% endset -%}
     <meta name="description" content="{{ desc_content }}">
-    <meta name="author" content="Sam Fakhreddine">
+    <meta name="author" content="{{ config.BLOG_AUTHOR }}">
+    <meta name="keywords" content="{% block keywords %}technology, programming, python, aws, cloud, devops, software engineering{% endblock %}">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="en">
+    <meta name="revisit-after" content="7 days">
+    
+    <!-- Open Graph / Facebook -->
     <meta property="og:title" content="{{ title_content }}">
     <meta property="og:description" content="{{ desc_content }}">
     <meta property="og:type" content="{% block og_type %}website{% endblock %}">
     <meta property="og:url" content="{% block og_url %}{{ config.BASE_URL }}{% endblock %}">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:site_name" content="{{ config.BLOG_TITLE }}">
+    <meta property="og:image" content="{% block og_image %}{{ config.BASE_URL }}/{{ config.DEFAULT_OG_IMAGE }}{% endblock %}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ title_content }}">
+    <meta name="twitter:description" content="{{ desc_content }}">
+    <meta name="twitter:image" content="{% block twitter_image %}{{ config.BASE_URL }}/{{ config.DEFAULT_OG_IMAGE }}{% endblock %}">
+    <meta name="twitter:creator" content="@sam_fakhreddine">
+    <meta name="twitter:site" content="@sam_fakhreddine">
+    
     <meta name="google-site-verification" content="B8-wdoIV-Vcw3zjLrj9W7eUsCR99T9x7ukTX9OcfV1s" />
     <link rel="canonical" href="{% block canonical %}{{ config.BASE_URL }}{% endblock %}">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="feed.xml">
     <link rel="sitemap" type="application/xml" href="sitemap.xml">
     <title>{{ title_content }}</title>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "{% block schema_type %}WebSite{% endblock %}",
+      "name": "{{ config.BLOG_TITLE }}",
+      "description": "{{ config.BLOG_DESCRIPTION }}",
+      "url": "{{ config.BASE_URL }}",
+      "author": {
+        "@type": "Person",
+        "name": "{{ config.BLOG_AUTHOR }}",
+        "url": "{{ config.BASE_URL }}"
+      },
+      "publisher": {
+        "@type": "Person",
+        "name": "{{ config.BLOG_AUTHOR }}"
+      }{% block schema_extra %}{% endblock %}
+    }
+    </script>
     
     <!-- Google Tag Manager -->
     {% if config.GOOGLE_TAG_MANAGER_ID %}

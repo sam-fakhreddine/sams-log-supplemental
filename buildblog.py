@@ -93,11 +93,17 @@ def intersect_filter(a, b):
     """Return the intersection of two lists"""
     return [item for item in a if item in b]
 
+def wordcount_filter(text):
+    """Count words in text"""
+    import re
+    return len(re.findall(r'\b\w+\b', str(text)))
+
 def build_site():
     try:
         # Setup
         env = Environment(loader=FileSystemLoader("templates"))
         env.filters['intersect'] = intersect_filter
+        env.filters['wordcount'] = wordcount_filter
         md = markdown.Markdown(
             extensions=["meta", "fenced_code", "codehilite", "toc", "tables"]
         )
@@ -135,7 +141,7 @@ def build_site():
                     html_content = md.convert(content)
                     slug = filename.replace(".md", ".html")
 
-                    # Calculate reading time (average reading speed: 200 words per minute)
+                    # Calculate reading time and word count (average reading speed: 200 words per minute)
                     word_count = len(content.split())
                     reading_time = max(1, round(word_count / 200))
                     
@@ -148,6 +154,7 @@ def build_site():
                         "filename": slug,
                         "url": f"/{slug}",
                         "reading_time": reading_time,
+                        "word_count": word_count,
                     }
                     posts.append(post)
 

@@ -2,28 +2,64 @@
 
 {% block title %}{{ post.title }} - {{ config.BLOG_TITLE }}{% endblock %}
 {% block description %}{{ post.description or post.title }}{% endblock %}
+{% block keywords %}{{ post.tags|join(', ') }}{% if post.tags %}, {% endif %}{{ config.BLOG_TITLE|lower }}, programming, technology{% endblock %}
 {% block og_type %}article{% endblock %}
 {% block og_url %}{{ config.BASE_URL }}/{{ post.filename }}{% endblock %}
 {% block canonical %}{{ config.BASE_URL }}/{{ post.filename }}{% endblock %}
 
+{% block schema_type %}Article{% endblock %}
+{% block schema_extra %},
+      "headline": "{{ post.title }}",
+      "datePublished": "{{ post.date }}T00:00:00Z",
+      "dateModified": "{{ post.date }}T00:00:00Z",
+      "articleSection": "Technology",
+      "keywords": [{% for tag in post.tags %}"{{ tag }}"{% if not loop.last %}, {% endif %}{% endfor %}],
+      "wordCount": {{ (post.content|striptags|wordcount) or 500 }},
+      "timeRequired": "PT{{ post.reading_time }}M",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ config.BASE_URL }}/{{ post.filename }}"
+      }{% endblock %}
+
 {% block content %}
-<article>
+<nav aria-label="Breadcrumb" class="breadcrumb">
+    <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a itemprop="item" href="{{ config.BASE_URL }}/">
+                <span itemprop="name">Home</span>
+            </a>
+            <meta itemprop="position" content="1" />
+        </li>
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <span itemprop="name">{{ post.title }}</span>
+            <meta itemprop="position" content="2" />
+        </li>
+    </ol>
+</nav>
+
+<article itemscope itemtype="https://schema.org/Article">
+    <meta itemprop="headline" content="{{ post.title }}">
+    <meta itemprop="description" content="{{ post.description or post.title }}">
+    <meta itemprop="url" content="{{ config.BASE_URL }}/{{ post.filename }}">
     <header>
         <h1>{{ post.title }}</h1>
         <div class="post-meta">
-            <time datetime="{{ post.date }}">{{ post.date }}</time>
-            <span class="reading-time">{{ post.reading_time }} min read</span>
+            <time datetime="{{ post.date }}T00:00:00Z" itemprop="datePublished">{{ post.date }}</time>
+            <span class="reading-time" itemprop="timeRequired" content="PT{{ post.reading_time }}M">{{ post.reading_time }} min read</span>
+            <span class="author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                <span itemprop="name">{{ config.BLOG_AUTHOR }}</span>
+            </span>
             {% if post.tags %}
             <div class="tags">
                 {% for tag in post.tags %}
-                <span class="tag" data-tag="{{ tag }}">{{ tag }}</span>
+                <span class="tag" data-tag="{{ tag }}" itemprop="keywords">{{ tag }}</span>
                 {% endfor %}
             </div>
             {% endif %}
         </div>
     </header>
     
-    <div class="post-content">
+    <div class="post-content" itemprop="articleBody">
         {{ post.content | safe }}
         
         <!-- In-content AdSense Ad -->
