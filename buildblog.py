@@ -54,7 +54,18 @@ def generate_sitemap(posts, base_url=BASE_URL):
         ET.SubElement(url, "changefreq").text = "monthly"
         ET.SubElement(url, "priority").text = "0.8"
 
+    # Format XML with proper indentation
+    ET.indent(urlset, space="  ", level=0)
     return ET.tostring(urlset, encoding="unicode")
+
+
+def generate_robots_txt(base_url=BASE_URL):
+    """Generate robots.txt file"""
+    return f"""User-agent: *
+Allow: /
+
+Sitemap: {base_url}/sitemap.xml
+"""
 
 
 def generate_rss(posts, base_url=BASE_URL):
@@ -209,12 +220,17 @@ def build_site():
         with open("docs/sitemap.xml", "w", encoding="utf-8") as f:
             f.write('<?xml version="1.0" encoding="UTF-8"?>\n' + sitemap_xml)
 
+        # Generate robots.txt
+        robots_txt = generate_robots_txt()
+        with open("docs/robots.txt", "w", encoding="utf-8") as f:
+            f.write(robots_txt)
+
         # Generate RSS feed
         rss_xml = generate_rss(posts)
         with open("docs/feed.xml", "w", encoding="utf-8") as f:
             f.write('<?xml version="1.0" encoding="UTF-8"?>\n' + rss_xml)
 
-        print(f"✅ Built {len(posts)} posts, sitemap, and RSS feed")
+        print(f"✅ Built {len(posts)} posts, sitemap, robots.txt, and RSS feed")
 
     except Exception as e:
         print(f"❌ Build failed: {e}")
