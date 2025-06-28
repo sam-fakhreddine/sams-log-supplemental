@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const postElements = document.querySelectorAll('.post-list li');
         
         postElements.forEach(post => {
-            const titleEl = post.querySelector('h3 a');
+            const titleEl = post.querySelector('h2 a') || post.querySelector('h3 a');
             const dateEl = post.querySelector('.post-meta');
             const tagsEl = post.querySelectorAll('.tag');
             
@@ -187,11 +187,11 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // If we have a heading element before the post list, update it
         const headingEl = document.querySelector('.post-list').previousElementSibling;
-        if (headingEl && headingEl.tagName === 'H2') {
+        if (headingEl && (headingEl.tagName === 'H1' || headingEl.tagName === 'H2')) {
             if (visibleCount < totalCount) {
                 headingEl.textContent = `Showing ${visibleCount} of ${totalCount} Posts`;
             } else {
-                headingEl.textContent = 'All Posts';
+                headingEl.textContent = 'Latest Posts';
             }
         }
     }
