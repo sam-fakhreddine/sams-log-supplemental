@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     themeSelect.value = localStorage.getItem('theme') || 'auto';
     
     function updateBanner(theme) {
-        const isLcars = theme === 'lcars';
+        const isLcars = theme === 'lcars' || theme === 'lcars2';
         // For now, Material 3 theme uses the default banner
         const bannerType = isLcars ? 'lcars' : 'banner';
         
