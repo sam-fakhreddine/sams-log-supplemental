@@ -522,15 +522,30 @@ li {
     display: list-item;
 }
 
-/* Grid container list fixes */
+/* Grid container list fixes - for HTML divs with inline grid styles containing Markdown lists */
 div[style*="grid"] ul,
 div[style*="grid"] ol {
     margin: 0.5em 0;
     padding-left: 1.5em;
+    list-style-type: disc;
+}
+
+div[style*="grid"] ol {
+    list-style-type: decimal;
 }
 
 div[style*="grid"] li {
     margin-bottom: 0.3em;
     display: list-item;
     list-style-position: outside;
+}
+
+/* Ensure nested lists in grid containers work */
+div[style*="grid"] ul ul {
+    list-style-type: circle;
+    padding-left: 1em;
+}
+
+div[style*="grid"] ul ul ul {
+    list-style-type: square;
 }
