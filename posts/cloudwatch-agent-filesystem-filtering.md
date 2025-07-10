@@ -1,6 +1,6 @@
 ---
 title: "CloudWatch Agent: Why You Should Filter File System Types"
-date: "2024-12-19"
+date: "2025-07-10"
 description: "Learn why filtering file system types in CloudWatch agent improves performance, reduces costs, and focuses monitoring on what matters most."
 tags: ["aws", "cloudwatch", "monitoring", "performance", "devops"]
 ---
