@@ -15,31 +15,39 @@ Managing AWS costs effectively is crucial for any organization using cloud servi
 <div>
 
 ### 📊 AWS Cost Explorer
-- Built-in spending analysis
-- Custom report creation
-- Cost anomaly detection
-- Historical trend analysis
+<ul>
+<li>Built-in spending analysis</li>
+<li>Custom report creation</li>
+<li>Cost anomaly detection</li>
+<li>Historical trend analysis</li>
+</ul>
 
 ### 💰 AWS Budgets
-- Proactive budget alerts
-- Service-specific budgets
-- Forecasted overrun alerts
-- Custom threshold notifications
+<ul>
+<li>Proactive budget alerts</li>
+<li>Service-specific budgets</li>
+<li>Forecasted overrun alerts</li>
+<li>Custom threshold notifications</li>
+</ul>
 
 </div>
 <div>
 
 ### Alert Strategy
-**Monthly Budget Alerts:**
-- 50% - Early warning
-- 80% - Action required
-- 100% - Budget exceeded
+<strong>Monthly Budget Alerts:</strong>
+<ul>
+<li>50% - Early warning</li>
+<li>80% - Action required</li>
+<li>100% - Budget exceeded</li>
+</ul>
 
-**Service-Specific:**
-- EC2 instances
-- RDS databases
-- Data transfer
-- Storage costs
+<strong>Service-Specific:</strong>
+<ul>
+<li>EC2 instances</li>
+<li>RDS databases</li>
+<li>Data transfer</li>
+<li>Storage costs</li>
+</ul>
 
 </div>
 </div>
@@ -58,24 +66,30 @@ For deeper insights into AWS cost optimization, I highly recommend these books:
 <div>
 
 ### Third-Party Solutions
-**CloudHealth by VMware**
-- Multi-cloud cost management
-- Detailed reporting
-- Complex environment support
+<strong>CloudHealth by VMware</strong>
+<ul>
+<li>Multi-cloud cost management</li>
+<li>Detailed reporting</li>
+<li>Complex environment support</li>
+</ul>
 
-**Spot.io**
-- Automated spot instances
-- Up to 90% EC2 savings
-- Interruption handling
+<strong>Spot.io</strong>
+<ul>
+<li>Automated spot instances</li>
+<li>Up to 90% EC2 savings</li>
+<li>Interruption handling</li>
+</ul>
 
 </div>
 <div>
 
 ### 💡 Pro Tips
-- **Right-size regularly** - Monthly Compute Optimizer reviews
-- **Reserved Instances** - Analyze usage patterns first
-- **Tagging strategies** - Enable accurate cost allocation
-- **Data transfer costs** - Often overlooked expense
+<ul>
+<li><strong>Right-size regularly</strong> - Monthly Compute Optimizer reviews</li>
+<li><strong>Reserved Instances</strong> - Analyze usage patterns first</li>
+<li><strong>Tagging strategies</strong> - Enable accurate cost allocation</li>
+<li><strong>Data transfer costs</strong> - Often overlooked expense</li>
+</ul>
 
 </div>
 </div>

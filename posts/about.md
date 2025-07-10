@@ -24,10 +24,12 @@ If these solutions helped me, they might help others facing similar challenges. 
 <div>
 
 ### 📚 What You'll Find
-- **AWS** - Configurations, best practices, cost optimization
-- **Systems Operations** - Monitoring, automation, troubleshooting
-- **System Administration** - Server management, security hardening
-- **Development** - Scripts, tools, operational integrations
+<ul>
+<li><strong>AWS</strong> - Configurations, best practices, cost optimization</li>
+<li><strong>Systems Operations</strong> - Monitoring, automation, troubleshooting</li>
+<li><strong>System Administration</strong> - Server management, security hardening</li>
+<li><strong>Development</strong> - Scripts, tools, operational integrations</li>
+</ul>
 
 </div>
 </div>
@@ -38,19 +40,23 @@ If these solutions helped me, they might help others facing similar challenges. 
 <div>
 
 ### 🎯 Focus
-- Real-world problems
-- Practical solutions
-- Actionable insights
-- Immediate implementation
+<ul>
+<li>Real-world problems</li>
+<li>Practical solutions</li>
+<li>Actionable insights</li>
+<li>Immediate implementation</li>
+</ul>
 
 </div>
 <div>
 
 ### 📊 Content Range
-- Quick one-liners
-- Time-saving troubleshooting
-- Comprehensive guides
-- Production-tested solutions
+<ul>
+<li>Quick one-liners</li>
+<li>Time-saving troubleshooting</li>
+<li>Comprehensive guides</li>
+<li>Production-tested solutions</li>
+</ul>
 
 </div>
 </div>

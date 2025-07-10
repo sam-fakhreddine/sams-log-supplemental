@@ -67,27 +67,35 @@ Here's the comprehensive filter list that addresses these issues:
 <div>
 
 <h3>🗂️ Virtual/Pseudo File Systems</h3>
-- **proc, sysfs, devpts**: Kernel interfaces
-- **cgroup, cgroup2**: Container management
-- **tmpfs, ramfs**: Memory-based storage
+<ul>
+<li><strong>proc, sysfs, devpts</strong>: Kernel interfaces</li>
+<li><strong>cgroup, cgroup2</strong>: Container management</li>
+<li><strong>tmpfs, ramfs</strong>: Memory-based storage</li>
+</ul>
 
 <h3>🌐 Network File Systems</h3>
-- **nfs, nfs4, cifs, smb**: Network latency issues
-- **efs, fsx**: AWS managed (separate monitoring)
-- **s3fs, goofys**: Object storage FUSE mounts
+<ul>
+<li><strong>nfs, nfs4, cifs, smb</strong>: Network latency issues</li>
+<li><strong>efs, fsx</strong>: AWS managed (separate monitoring)</li>
+<li><strong>s3fs, goofys</strong>: Object storage FUSE mounts</li>
+</ul>
 
 </div>
 <div>
 
 <h3>📦 Container/Overlay Systems</h3>
-- **overlay, overlay2**: Docker/container layers
-- **aufs, devicemapper**: Legacy storage drivers
-- **loop***: Loopback devices
+<ul>
+<li><strong>overlay, overlay2</strong>: Docker/container layers</li>
+<li><strong>aufs, devicemapper</strong>: Legacy storage drivers</li>
+<li><strong>loop</strong>*: Loopback devices</li>
+</ul>
 
 <h3>☁️ Cloud Provider Utilities</h3>
-- **amazon-efs-client-utils**: AWS service mounts
-- **amazon-ssm-agent**: SSM agent mounts
-- **mountpoint-s3**: AWS S3 FUSE driver
+<ul>
+<li><strong>amazon-efs-client-utils</strong>: AWS service mounts</li>
+<li><strong>amazon-ssm-agent</strong>: SSM agent mounts</li>
+<li><strong>mountpoint-s3</strong>: AWS S3 FUSE driver</li>
+</ul>
 
 </div>
 </div>
@@ -98,25 +106,31 @@ Here's the comprehensive filter list that addresses these issues:
 <div>
 
 <h3>🚀 Performance</h3>
-- 80% reduction in overhead
-- Faster metric collection
-- Lower CPU/memory usage
+<ul>
+<li>80% reduction in overhead</li>
+<li>Faster metric collection</li>
+<li>Lower CPU/memory usage</li>
+</ul>
 
 </div>
 <div>
 
 <h3>💰 Cost Reduction</h3>
-- Fewer CloudWatch metrics
-- Less API calls
-- Reduced data transfer
+<ul>
+<li>Fewer CloudWatch metrics</li>
+<li>Less API calls</li>
+<li>Reduced data transfer</li>
+</ul>
 
 </div>
 <div>
 
 <h3>🎯 Better Alerting</h3>
-- Focused notifications
-- No false positives
-- Cleaner dashboards
+<ul>
+<li>Focused notifications</li>
+<li>No false positives</li>
+<li>Cleaner dashboards</li>
+</ul>
 
 </div>
 </div>
@@ -156,27 +170,35 @@ Deploy the configuration in a test environment first to ensure you're not accide
 
 <h3>🐳 Container Environments</h3>
 Essential for Docker/Kubernetes:
-- **Before**: Dozens of overlay mounts
-- **After**: Only host storage monitored
+<ul>
+<li><strong>Before</strong>: Dozens of overlay mounts</li>
+<li><strong>After</strong>: Only host storage monitored</li>
+</ul>
 
 <h3>🔗 Multi-Mount Systems</h3>
 Servers with network mounts:
-- **Before**: NFS timeouts cause delays
-- **After**: Reliable local monitoring
+<ul>
+<li><strong>Before</strong>: NFS timeouts cause delays</li>
+<li><strong>After</strong>: Reliable local monitoring</li>
+</ul>
 
 </div>
 <div>
 
 <h3>☁️ AWS Environments</h3>
 Using EFS, FSx, or S3 mounts:
-- **Before**: Duplicate monitoring overhead
-- **After**: AWS services use native metrics
+<ul>
+<li><strong>Before</strong>: Duplicate monitoring overhead</li>
+<li><strong>After</strong>: AWS services use native metrics</li>
+</ul>
 
 <h3>🎯 What You'll Monitor</h3>
-- Root file system (/, ext4/xfs)
-- Data volumes (/data, /var)
-- Application storage
-- User directories (/home, /opt)
+<ul>
+<li>Root file system (/, ext4/xfs)</li>
+<li>Data volumes (/data, /var)</li>
+<li>Application storage</li>
+<li>User directories (/home, /opt)</li>
+</ul>
 
 </div>
 </div>

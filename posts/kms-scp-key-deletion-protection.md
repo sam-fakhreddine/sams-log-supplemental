@@ -17,10 +17,12 @@ Today, I want to share a simple but powerful Service Control Policy (SCP) that c
 <div>
 
 <h3>⚠️ Risk Factors</h3>
-- **Human Error**: Accidental production key scheduling
-- **Insufficient Recovery Time**: 7 days too short for detection
-- **Weekend/Holiday Gaps**: Friday deletions missed until Monday
-- **Cross-Team Dependencies**: Unaware stakeholders
+<ul>
+<li><strong>Human Error</strong>: Accidental production key scheduling</li>
+<li><strong>Insufficient Recovery Time</strong>: 7 days too short for detection</li>
+<li><strong>Weekend/Holiday Gaps</strong>: Friday deletions missed until Monday</li>
+<li><strong>Cross-Team Dependencies</strong>: Unaware stakeholders</li>
+</ul>
 
 </div>
 <div>
@@ -64,28 +66,34 @@ This policy is elegantly simple yet powerful. Let's break down how it works:
 <div>
 
 <h3>🛡️ Extended Recovery</h3>
-- 30-day minimum window
-- Multiple detection opportunities
-- Reduced panic scenarios
-- Better incident response
+<ul>
+<li>30-day minimum window</li>
+<li>Multiple detection opportunities</li>
+<li>Reduced panic scenarios</li>
+<li>Better incident response</li>
+</ul>
 
 </div>
 <div>
 
 <h3>📋 Compliance Ready</h3>
-- **SOC 2**: Data protection controls
-- **ISO 27001**: Security framework
-- **GDPR**: Recovery procedures
-- **HIPAA**: Health data protection
+<ul>
+<li><strong>SOC 2</strong>: Data protection controls</li>
+<li><strong>ISO 27001</strong>: Security framework</li>
+<li><strong>GDPR</strong>: Recovery procedures</li>
+<li><strong>HIPAA</strong>: Health data protection</li>
+</ul>
 
 </div>
 <div>
 
 <h3>⏰ Safety Timeline</h3>
-- **Week 1**: Automated detection
-- **Week 2**: Security reviews
-- **Week 3**: Compliance audits
-- **Week 4**: Final intervention
+<ul>
+<li><strong>Week 1</strong>: Automated detection</li>
+<li><strong>Week 2</strong>: Security reviews</li>
+<li><strong>Week 3</strong>: Compliance audits</li>
+<li><strong>Week 4</strong>: Final intervention</li>
+</ul>
 
 </div>
 </div>
@@ -96,18 +104,18 @@ This policy is elegantly simple yet powerful. Let's break down how it works:
 <div>
 
 <h3>❌ Before SCP</h3>
-```bash
+<code></code>`bash
 # Dangerous 7-day window succeeds
 aws kms schedule-key-deletion \
   --key-id alias/prod-key \
   --pending-window-in-days 7
-```
+<code></code>`
 
 </div>
 <div>
 
 <h3>✅ After SCP</h3>
-```bash
+<code></code>`bash
 # Short window now fails
 aws kms schedule-key-deletion \
   --key-id alias/prod-key \
@@ -118,7 +126,7 @@ aws kms schedule-key-deletion \
 aws kms schedule-key-deletion \
   --key-id alias/prod-key \
   --pending-window-in-days 30
-```
+<code></code>`
 
 </div>
 </div>
@@ -225,8 +233,8 @@ def create_kms_deletion_alarm():
 <div>
 
 <h3>💬 "30 days too long for dev"</h3>
-**Solution**: Environment-specific SCPs
-```json
+<strong>Solution</strong>: Environment-specific SCPs
+<code></code>`json
 {
   "Sid": "KMSDevShortDel",
   "Condition": {
@@ -235,20 +243,20 @@ def create_kms_deletion_alarm():
     }
   }
 }
-```
+<code></code>`
 
 <h3>🤖 "Breaks our automation"</h3>
-**Solution**: Fix the automation!
-```bash
+<strong>Solution</strong>: Fix the automation!
+<code></code>`bash
 sed -i 's/--pending-window-in-days 7/--pending-window-in-days 30/g' cleanup-scripts/*.sh
-```
+<code></code>`
 
 </div>
 <div>
 
 <h3>🚨 "Need immediate deletion"</h3>
-**Solution**: Disable first, then schedule
-```bash
+<strong>Solution</strong>: Disable first, then schedule
+<code></code>`bash
 # Immediate security response
 aws kms disable-key --key-id alias/compromised-key
 
@@ -256,10 +264,10 @@ aws kms disable-key --key-id alias/compromised-key
 aws kms schedule-key-deletion \
   --key-id alias/compromised-key \
   --pending-window-in-days 30
-```
+<code></code>`
 
 <h3>🔒 "Too restrictive"</h3>
-**Solution**: Break-glass procedure with temporary SCP detachment and approval workflow
+<strong>Solution</strong>: Break-glass procedure with temporary SCP detachment and approval workflow
 
 </div>
 </div>
@@ -270,19 +278,23 @@ aws kms schedule-key-deletion \
 <div>
 
 <h3>❌ Before Implementation</h3>
-- **Deletion window**: 7-14 days
-- **Accidental deletions**: 2-3/month
-- **Recovery incidents**: 1-2/quarter
-- **Recovery time**: 4-8 hours
+<ul>
+<li><strong>Deletion window</strong>: 7-14 days</li>
+<li><strong>Accidental deletions</strong>: 2-3/month</li>
+<li><strong>Recovery incidents</strong>: 1-2/quarter</li>
+<li><strong>Recovery time</strong>: 4-8 hours</li>
+</ul>
 
 </div>
 <div>
 
 <h3>✅ After Implementation</h3>
-- **Deletion window**: 30+ days
-- **Accidental deletions**: 0/month
-- **Recovery incidents**: 0
-- **Prevented incidents**: 3-4/quarter
+<ul>
+<li><strong>Deletion window</strong>: 30+ days</li>
+<li><strong>Accidental deletions</strong>: 0/month</li>
+<li><strong>Recovery incidents</strong>: 0</li>
+<li><strong>Prevented incidents</strong>: 3-4/quarter</li>
+</ul>
 
 </div>
 </div>

@@ -25,18 +25,20 @@ I wanted a simple, fast blog that could:
 <div>
 
 <h3>🔧 Core Technologies</h3>
-- **Python** - Static site generation
-- **Poetry** - Dependency management
-- **Jinja2** - HTML templating
-- **Markdown** - Content writing
-- **GitHub Actions** - CI/CD pipeline
-- **GitHub Pages** - Free hosting
+<ul>
+<li><strong>Python</strong> - Static site generation</li>
+<li><strong>Poetry</strong> - Dependency management</li>
+<li><strong>Jinja2</strong> - HTML templating</li>
+<li><strong>Markdown</strong> - Content writing</li>
+<li><strong>GitHub Actions</strong> - CI/CD pipeline</li>
+<li><strong>GitHub Pages</strong> - Free hosting</li>
+</ul>
 
 </div>
 <div>
 
 <h3>📦 Key Dependencies</h3>
-```toml
+<code></code>`toml
 [tool.poetry.dependencies]
 python = "^3.11"
 markdown = "^3.8.2"
@@ -48,7 +50,7 @@ requests = "^2.32.4"
 [tool.poetry.group.dev.dependencies]
 black = "^25.0.0"
 flake8 = "^7.0.0"
-```
+<code></code>`
 
 </div>
 </div>
@@ -101,35 +103,43 @@ def build_site():
 <div>
 
 <h3>📝 Content Management</h3>
-- **Frontmatter support** for metadata
-- **Tag system** for categorization
-- **Automatic date handling**
-- **Content validation** in CI
+<ul>
+<li><strong>Frontmatter support</strong> for metadata</li>
+<li><strong>Tag system</strong> for categorization</li>
+<li><strong>Automatic date handling</strong></li>
+<li><strong>Content validation</strong> in CI</li>
+</ul>
 
 <h3>🔍 SEO & Discovery</h3>
-- **XML sitemap** generation
-- **RSS feed** for subscribers
-- **Open Graph** meta tags
-- **Twitter Cards** support
-- **Semantic HTML** structure
+<ul>
+<li><strong>XML sitemap</strong> generation</li>
+<li><strong>RSS feed</strong> for subscribers</li>
+<li><strong>Open Graph</strong> meta tags</li>
+<li><strong>Twitter Cards</strong> support</li>
+<li><strong>Semantic HTML</strong> structure</li>
+</ul>
 
 </div>
 <div>
 
 <h3>🎨 Design & UX</h3>
-- **Multi-theme system** (auto/light/dark/LCARS)
-- **Dynamic banner switching**
-- **Local storage** persistence
-- **Mobile-responsive** design
-- **WebP images** optimization
-- **Accessible** markup
+<ul>
+<li><strong>Multi-theme system</strong> (auto/light/dark/LCARS)</li>
+<li><strong>Dynamic banner switching</strong></li>
+<li><strong>Local storage</strong> persistence</li>
+<li><strong>Mobile-responsive</strong> design</li>
+<li><strong>WebP images</strong> optimization</li>
+<li><strong>Accessible</strong> markup</li>
+</ul>
 
 <h3>👨‍💻 Developer Experience</h3>
-- **Poetry** dependency management
-- **GitHub Actions** with caching
-- **Error handling** & validation
-- **Local development** workflow
-- **Code formatting** (Black/Flake8)
+<ul>
+<li><strong>Poetry</strong> dependency management</li>
+<li><strong>GitHub Actions</strong> with caching</li>
+<li><strong>Error handling</strong> & validation</li>
+<li><strong>Local development</strong> workflow</li>
+<li><strong>Code formatting</strong> (Black/Flake8)</li>
+</ul>
 
 </div>
 </div>
@@ -186,29 +196,35 @@ Every push to `main` triggers:
 <div>
 
 <h3>🐍 Why Python?</h3>
-- Full build control
-- Easy customization
-- Familiar ecosystem
-- Advanced Markdown processing
+<ul>
+<li>Full build control</li>
+<li>Easy customization</li>
+<li>Familiar ecosystem</li>
+<li>Advanced Markdown processing</li>
+</ul>
 
 </div>
 <div>
 
 <h3>📦 Why Poetry?</h3>
-- Better dependency resolution
-- Reproducible builds
-- Modern packaging
-- Dev/prod separation
+<ul>
+<li>Better dependency resolution</li>
+<li>Reproducible builds</li>
+<li>Modern packaging</li>
+<li>Dev/prod separation</li>
+</ul>
 
 </div>
 <div>
 
 <h3>🌐 Why GitHub Pages?</h3>
-- Free hosting
-- Automatic HTTPS/CDN
-- Actions integration
-- Custom domains
-- Artifact management
+<ul>
+<li>Free hosting</li>
+<li>Automatic HTTPS/CDN</li>
+<li>Actions integration</li>
+<li>Custom domains</li>
+<li>Artifact management</li>
+</ul>
 
 </div>
 </div>
@@ -219,28 +235,34 @@ Every push to `main` triggers:
 <div>
 
 <h3>⚡ Speed</h3>
-- **Minimal CSS** - No frameworks
-- **Progressive enhancement**
-- **Smart JavaScript**
-- **Advanced caching**
+<ul>
+<li><strong>Minimal CSS</strong> - No frameworks</li>
+<li><strong>Progressive enhancement</strong></li>
+<li><strong>Smart JavaScript</strong></li>
+<li><strong>Advanced caching</strong></li>
+</ul>
 
 </div>
 <div>
 
 <h3>🖼️ Assets</h3>
-- **WebP images** - Optimized format
-- **Responsive sizing**
-- **CSS variables** - Dynamic theming
-- **External files** - Better caching
+<ul>
+<li><strong>WebP images</strong> - Optimized format</li>
+<li><strong>Responsive sizing</strong></li>
+<li><strong>CSS variables</strong> - Dynamic theming</li>
+<li><strong>External files</strong> - Better caching</li>
+</ul>
 
 </div>
 <div>
 
 <h3>♿ Accessibility</h3>
-- **Semantic HTML5**
-- **Proper contrast**
-- **Screen reader friendly**
-- **Keyboard navigation**
+<ul>
+<li><strong>Semantic HTML5</strong></li>
+<li><strong>Proper contrast</strong></li>
+<li><strong>Screen reader friendly</strong></li>
+<li><strong>Keyboard navigation</strong></li>
+</ul>
 
 </div>
 </div>
@@ -263,28 +285,34 @@ Some ideas for future iterations:
 <div>
 
 <h3>🎨 Design Features</h3>
-- ✅ Multi-theme system
-- ✅ Dynamic banners
-- ✅ Mobile responsive
-- ✅ WebP optimization
+<ul>
+<li>✅ Multi-theme system</li>
+<li>✅ Dynamic banners</li>
+<li>✅ Mobile responsive</li>
+<li>✅ WebP optimization</li>
+</ul>
 
 </div>
 <div>
 
 <h3>🔍 SEO & Content</h3>
-- ✅ Comprehensive SEO
-- ✅ RSS feed
-- ✅ Content validation
-- ✅ Error handling
+<ul>
+<li>✅ Comprehensive SEO</li>
+<li>✅ RSS feed</li>
+<li>✅ Content validation</li>
+<li>✅ Error handling</li>
+</ul>
 
 </div>
 <div>
 
 <h3>🚀 DevOps</h3>
-- ✅ CI/CD pipeline
-- ✅ Advanced caching
-- ✅ Live site testing
-- ✅ Modern tooling
+<ul>
+<li>✅ CI/CD pipeline</li>
+<li>✅ Advanced caching</li>
+<li>✅ Live site testing</li>
+<li>✅ Modern tooling</li>
+</ul>
 
 </div>
 </div>
