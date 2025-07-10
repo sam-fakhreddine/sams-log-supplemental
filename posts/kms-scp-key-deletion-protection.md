@@ -11,14 +11,25 @@ AWS Key Management Service (KMS) is the backbone of encryption across AWS servic
 
 Today, I want to share a simple but powerful Service Control Policy (SCP) that can prevent this nightmare scenario by enforcing a minimum 30-day deletion window for all KMS keys in your organization.
 
-## The Problem: Accidental Key Deletion
+## 🚨 The Problem: Accidental Key Deletion
 
-KMS key deletion is intentionally designed to be a two-step process with a waiting period, but the default minimum is just 7 days. In large organizations, this creates several risks:
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+<div>
 
-- **Human Error**: Developers or administrators accidentally scheduling production keys for deletion
-- **Insufficient Recovery Time**: 7 days may not provide enough time to identify and resolve the issue
-- **Weekend/Holiday Gaps**: Keys scheduled for deletion on Friday might not be noticed until the following week
-- **Cross-Team Dependencies**: Other teams may not be aware of the deletion until it's too late
+### Risk Factors
+- **Human Error**: Accidental production key scheduling
+- **Insufficient Recovery Time**: 7 days too short for detection
+- **Weekend/Holiday Gaps**: Friday deletions missed until Monday
+- **Cross-Team Dependencies**: Unaware stakeholders
+
+</div>
+<div>
+
+### Real Scenario
+Developer cleaning test environment accidentally includes production KMS key in deletion script. Key scheduled Friday afternoon with 7-day window. Production team notices Tuesday - only 3 days left to recover.
+
+</div>
+</div>
 
 Consider this scenario: A developer cleaning up a test environment accidentally includes a production KMS key in their deletion script. The key is scheduled for deletion with a 7-day window on Friday afternoon. By the time the production team notices encrypted data becoming inaccessible the following Tuesday, there are only 3 days left to recover - assuming they can even identify the root cause quickly.
 
@@ -47,46 +58,70 @@ This policy is elegantly simple yet powerful. Let's break down how it works:
 - **Condition**: Uses `NumericLessThan` to deny any deletion window shorter than 30 days
 - **Effect**: Denies the action when the condition is met
 
-## Real-World Benefits
+## 🎯 Real-World Benefits
 
-### 1. Extended Recovery Window
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 20px 0;">
+<div>
 
-**Before SCP:**
+### 🛡️ Extended Recovery
+- 30-day minimum window
+- Multiple detection opportunities
+- Reduced panic scenarios
+- Better incident response
 
+</div>
+<div>
+
+### 📋 Compliance Ready
+- **SOC 2**: Data protection controls
+- **ISO 27001**: Security framework
+- **GDPR**: Recovery procedures
+- **HIPAA**: Health data protection
+
+</div>
+<div>
+
+### ⏰ Safety Timeline
+- **Week 1**: Automated detection
+- **Week 2**: Security reviews
+- **Week 3**: Compliance audits
+- **Week 4**: Final intervention
+
+</div>
+</div>
+
+### Before vs After
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+<div>
+
+**❌ Before SCP:**
 ```bash
-# This would succeed with dangerous 7-day window
-aws kms schedule-key-deletion --key-id alias/prod-database-key --pending-window-in-days 7
+# Dangerous 7-day window succeeds
+aws kms schedule-key-deletion \
+  --key-id alias/prod-key \
+  --pending-window-in-days 7
 ```
 
-**After SCP:**
+</div>
+<div>
 
+**✅ After SCP:**
 ```bash
-# This now fails, preventing accidental short deletions
-aws kms schedule-key-deletion --key-id alias/prod-database-key --pending-window-in-days 7
+# Short window now fails
+aws kms schedule-key-deletion \
+  --key-id alias/prod-key \
+  --pending-window-in-days 7
 # Error: Access Denied
 
 # Forces proper 30+ day window
-aws kms schedule-key-deletion --key-id alias/prod-database-key --pending-window-in-days 30
-# Success: Key scheduled for deletion in 30 days
+aws kms schedule-key-deletion \
+  --key-id alias/prod-key \
+  --pending-window-in-days 30
 ```
 
-### 2. Compliance and Governance
-
-Many compliance frameworks require adequate data retention and recovery procedures. A 30-day minimum deletion window helps satisfy requirements for:
-
-- **SOC 2**: Demonstrates proper data protection controls
-- **ISO 27001**: Shows systematic approach to information security
-- **GDPR**: Provides reasonable time for data recovery procedures
-- **HIPAA**: Ensures protected health information remains recoverable
-
-### 3. Operational Safety Net
-
-The extended window provides multiple opportunities for detection and recovery:
-
-- **Week 1**: Automated monitoring systems detect the scheduled deletion
-- **Week 2**: Regular security reviews identify the pending deletion
-- **Week 3**: Monthly compliance audits catch the issue
-- **Week 4**: Final opportunity for manual intervention
+</div>
+</div>
 
 ## Implementation Strategy
 
@@ -184,18 +219,16 @@ def create_kms_deletion_alarm():
     )
 ```
 
-## Common Objections and Responses
+## 💬 Common Objections
 
-### "30 days is too long for development environments"
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+<div>
 
-**Response**: Consider environment-specific SCPs. Apply the 30-day rule to production OUs while allowing shorter windows in development:
-
+### "30 days too long for dev"
+**Solution**: Environment-specific SCPs
 ```json
 {
   "Sid": "KMSDevShortDel",
-  "Effect": "Deny",
-  "Action": "kms:ScheduleKeyDeletion",
-  "Resource": "*",
   "Condition": {
     "NumericLessThan": {
       "kms:ScheduleKeyDeletionPendingWindowInDays": "14"
@@ -204,44 +237,55 @@ def create_kms_deletion_alarm():
 }
 ```
 
-### "This will break our automation"
-
-**Response**: Good! If your automation is scheduling keys for deletion with short windows, it needs to be fixed. Update scripts to use appropriate deletion windows:
-
+### "Breaks our automation"
+**Solution**: Fix the automation!
 ```bash
-# Update automation scripts
 sed -i 's/--pending-window-in-days 7/--pending-window-in-days 30/g' cleanup-scripts/*.sh
 ```
 
-### "We need immediate deletion for security incidents"
+</div>
+<div>
 
-**Response**: KMS keys cannot be immediately deleted by design. For security incidents, disable the key instead:
-
+### "Need immediate deletion"
+**Solution**: Disable first, then schedule
 ```bash
-# For immediate security response
+# Immediate security response
 aws kms disable-key --key-id alias/compromised-key
 
-# Schedule for deletion with proper window
-aws kms schedule-key-deletion --key-id alias/compromised-key --pending-window-in-days 30
+# Proper deletion window
+aws kms schedule-key-deletion \
+  --key-id alias/compromised-key \
+  --pending-window-in-days 30
 ```
 
-## Measuring Success
+### "Too restrictive"
+**Solution**: Break-glass procedure with temporary SCP detachment and approval workflow
 
-Track these metrics to demonstrate the SCP's value:
+</div>
+</div>
 
-### Before Implementation
+## 📊 Measuring Success
 
-- Average key deletion window: 7-14 days
-- Accidental deletions per month: 2-3
-- Recovery incidents: 1-2 per quarter
-- Mean time to recovery: 4-8 hours
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+<div>
 
-### After Implementation
+### ❌ Before Implementation
+- **Deletion window**: 7-14 days
+- **Accidental deletions**: 2-3/month
+- **Recovery incidents**: 1-2/quarter
+- **Recovery time**: 4-8 hours
 
-- Average key deletion window: 30+ days
-- Accidental deletions per month: 0
-- Recovery incidents: 0
-- Prevented incidents: 3-4 per quarter
+</div>
+<div>
+
+### ✅ After Implementation
+- **Deletion window**: 30+ days
+- **Accidental deletions**: 0/month
+- **Recovery incidents**: 0
+- **Prevented incidents**: 3-4/quarter
+
+</div>
+</div>
 
 ## Advanced Considerations
 

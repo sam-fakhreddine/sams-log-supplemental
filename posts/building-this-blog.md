@@ -21,17 +21,21 @@ I wanted a simple, fast blog that could:
 
 ## 🛠️ The Tech Stack
 
-**Core Technologies:**
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+<div>
 
+### Core Technologies
 - **Python** - Static site generation
-- **Poetry** - Modern dependency management
+- **Poetry** - Dependency management
 - **Jinja2** - HTML templating
 - **Markdown** - Content writing
 - **GitHub Actions** - CI/CD pipeline
 - **GitHub Pages** - Free hosting
 
-**Key Libraries:**
+</div>
+<div>
 
+### Key Dependencies
 ```toml
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -45,6 +49,9 @@ requests = "^2.32.4"
 black = "^25.0.0"
 flake8 = "^7.0.0"
 ```
+
+</div>
+</div>
 
 ## 🏗️ Architecture Overview
 
@@ -90,38 +97,42 @@ def build_site():
 
 ## ✨ Features Implemented
 
-### Content Management
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+<div>
 
-- **Frontmatter support** for rich metadata
+### 📝 Content Management
+- **Frontmatter support** for metadata
 - **Tag system** for categorization
 - **Automatic date handling**
-- **Content validation** in CI pipeline
+- **Content validation** in CI
 
-### SEO & Discovery
-
+### 🔍 SEO & Discovery
 - **XML sitemap** generation
 - **RSS feed** for subscribers
-- **Open Graph** meta tags for social sharing
+- **Open Graph** meta tags
 - **Twitter Cards** support
 - **Semantic HTML** structure
 
-### Design & UX
+</div>
+<div>
 
-- **Advanced theme system** with auto/light/dark modes and LCARS theme
-- **Dynamic banner switching** based on selected theme
-- **Local storage** theme persistence
-- **Mobile-responsive** design with optimized images (WebP format)
-- **Fast loading** with optimized CSS and minimal JavaScript
-- **Accessible** markup and contrast
+### 🎨 Design & UX
+- **Multi-theme system** (auto/light/dark/LCARS)
+- **Dynamic banner switching**
+- **Local storage** persistence
+- **Mobile-responsive** design
+- **WebP images** optimization
+- **Accessible** markup
 
-### Developer Experience
+### 👨‍💻 Developer Experience
+- **Poetry** dependency management
+- **GitHub Actions** with caching
+- **Error handling** & validation
+- **Local development** workflow
+- **Code formatting** (Black/Flake8)
 
-- **Poetry** for dependency management with dev dependencies
-- **GitHub Actions** with advanced caching and validation
-- **Comprehensive error handling** and build validation
-- **Local development** workflow with live testing
-- **Code formatting** with Black and Flake8
-- **Post validation** in CI pipeline
+</div>
+</div>
 
 ## 🚀 Deployment Pipeline
 
@@ -171,38 +182,68 @@ Every push to `main` triggers:
 
 ## 💡 Key Decisions
 
-**Why Python over Jekyll/Hugo?**
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 20px 0;">
+<div>
 
-- Full control over the build process
-- Easy to extend and customize
-- Familiar tooling and ecosystem
-- Advanced Markdown processing with multiple extensions
+### 🐍 Why Python?
+- Full build control
+- Easy customization
+- Familiar ecosystem
+- Advanced Markdown processing
 
-**Why Poetry over pip?**
+</div>
+<div>
 
+### 📦 Why Poetry?
 - Better dependency resolution
-- Lock files for reproducible builds
-- Modern Python packaging standards
-- Separate dev dependencies for cleaner production builds
+- Reproducible builds
+- Modern packaging
+- Dev/prod separation
 
-**Why GitHub Pages?**
+</div>
+<div>
 
-- Free hosting with excellent uptime
-- Automatic HTTPS and CDN
-- Integrated with GitHub Actions
-- Custom domain support
-- Built-in artifact management
+### 🌐 Why GitHub Pages?
+- Free hosting
+- Automatic HTTPS/CDN
+- Actions integration
+- Custom domains
+- Artifact management
+
+</div>
+</div>
 
 ## 📊 Performance Results
 
-The generated site is lightning fast:
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 20px 0;">
+<div>
 
-- **Minimal CSS** - No frameworks, just custom properties with CSS variables
-- **Progressive enhancement** - Core functionality works without JavaScript
-- **Smart JavaScript** - Theme switching with localStorage persistence
-- **Optimized images** - WebP format with responsive sizing
-- **Clean markup** - Semantic HTML5 with proper accessibility
-- **Advanced caching** - Build-time optimizations and GitHub Actions caching
+### ⚡ Speed
+- **Minimal CSS** - No frameworks
+- **Progressive enhancement**
+- **Smart JavaScript**
+- **Advanced caching**
+
+</div>
+<div>
+
+### 🖼️ Assets
+- **WebP images** - Optimized format
+- **Responsive sizing**
+- **CSS variables** - Dynamic theming
+- **External files** - Better caching
+
+</div>
+<div>
+
+### ♿ Accessibility
+- **Semantic HTML5**
+- **Proper contrast**
+- **Screen reader friendly**
+- **Keyboard navigation**
+
+</div>
+</div>
 
 ## 🔮 Future Enhancements
 
@@ -218,17 +259,35 @@ Some ideas for future iterations:
 
 ## 🎉 The Result
 
-The blog has evolved into a sophisticated static site generator with:
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 20px 0;">
+<div>
 
-- ✅ Advanced theme system (auto/light/dark/LCARS/Material 3)
-- ✅ Dynamic banner switching
-- ✅ Comprehensive SEO optimization
-- ✅ RSS feed with proper metadata
-- ✅ Mobile responsive with WebP images
-- ✅ Robust CI/CD pipeline with caching
-- ✅ Modern Python tooling with dev dependencies
-- ✅ Content validation and error handling
+### 🎨 Design Features
+- ✅ Multi-theme system
+- ✅ Dynamic banners
+- ✅ Mobile responsive
+- ✅ WebP optimization
+
+</div>
+<div>
+
+### 🔍 SEO & Content
+- ✅ Comprehensive SEO
+- ✅ RSS feed
+- ✅ Content validation
+- ✅ Error handling
+
+</div>
+<div>
+
+### 🚀 DevOps
+- ✅ CI/CD pipeline
+- ✅ Advanced caching
 - ✅ Live site testing
+- ✅ Modern tooling
+
+</div>
+</div>
 
 The entire setup is maintainable, extensible, and follows current best practices. Most importantly, it gets out of the way and lets me focus on writing.
 
