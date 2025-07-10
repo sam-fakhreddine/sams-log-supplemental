@@ -16,7 +16,7 @@ Today, I want to share a simple but powerful Service Control Policy (SCP) that c
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
 <div>
 
-### Risk Factors
+<h3>⚠️ Risk Factors</h3>
 - **Human Error**: Accidental production key scheduling
 - **Insufficient Recovery Time**: 7 days too short for detection
 - **Weekend/Holiday Gaps**: Friday deletions missed until Monday
@@ -25,7 +25,7 @@ Today, I want to share a simple but powerful Service Control Policy (SCP) that c
 </div>
 <div>
 
-### Real Scenario
+<h3>📖 Real Scenario</h3>
 Developer cleaning test environment accidentally includes production KMS key in deletion script. Key scheduled Friday afternoon with 7-day window. Production team notices Tuesday - only 3 days left to recover.
 
 </div>
@@ -63,7 +63,7 @@ This policy is elegantly simple yet powerful. Let's break down how it works:
 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 20px 0;">
 <div>
 
-### 🛡️ Extended Recovery
+<h3>🛡️ Extended Recovery</h3>
 - 30-day minimum window
 - Multiple detection opportunities
 - Reduced panic scenarios
@@ -72,7 +72,7 @@ This policy is elegantly simple yet powerful. Let's break down how it works:
 </div>
 <div>
 
-### 📋 Compliance Ready
+<h3>📋 Compliance Ready</h3>
 - **SOC 2**: Data protection controls
 - **ISO 27001**: Security framework
 - **GDPR**: Recovery procedures
@@ -81,7 +81,7 @@ This policy is elegantly simple yet powerful. Let's break down how it works:
 </div>
 <div>
 
-### ⏰ Safety Timeline
+<h3>⏰ Safety Timeline</h3>
 - **Week 1**: Automated detection
 - **Week 2**: Security reviews
 - **Week 3**: Compliance audits
@@ -95,7 +95,7 @@ This policy is elegantly simple yet powerful. Let's break down how it works:
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
 <div>
 
-**❌ Before SCP:**
+<h3>❌ Before SCP</h3>
 ```bash
 # Dangerous 7-day window succeeds
 aws kms schedule-key-deletion \
@@ -106,7 +106,7 @@ aws kms schedule-key-deletion \
 </div>
 <div>
 
-**✅ After SCP:**
+<h3>✅ After SCP</h3>
 ```bash
 # Short window now fails
 aws kms schedule-key-deletion \
@@ -224,7 +224,7 @@ def create_kms_deletion_alarm():
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
 <div>
 
-### "30 days too long for dev"
+<h3>💬 "30 days too long for dev"</h3>
 **Solution**: Environment-specific SCPs
 ```json
 {
@@ -237,7 +237,7 @@ def create_kms_deletion_alarm():
 }
 ```
 
-### "Breaks our automation"
+<h3>🤖 "Breaks our automation"</h3>
 **Solution**: Fix the automation!
 ```bash
 sed -i 's/--pending-window-in-days 7/--pending-window-in-days 30/g' cleanup-scripts/*.sh
@@ -246,7 +246,7 @@ sed -i 's/--pending-window-in-days 7/--pending-window-in-days 30/g' cleanup-scri
 </div>
 <div>
 
-### "Need immediate deletion"
+<h3>🚨 "Need immediate deletion"</h3>
 **Solution**: Disable first, then schedule
 ```bash
 # Immediate security response
@@ -258,7 +258,7 @@ aws kms schedule-key-deletion \
   --pending-window-in-days 30
 ```
 
-### "Too restrictive"
+<h3>🔒 "Too restrictive"</h3>
 **Solution**: Break-glass procedure with temporary SCP detachment and approval workflow
 
 </div>
@@ -269,7 +269,7 @@ aws kms schedule-key-deletion \
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
 <div>
 
-### ❌ Before Implementation
+<h3>❌ Before Implementation</h3>
 - **Deletion window**: 7-14 days
 - **Accidental deletions**: 2-3/month
 - **Recovery incidents**: 1-2/quarter
@@ -278,7 +278,7 @@ aws kms schedule-key-deletion \
 </div>
 <div>
 
-### ✅ After Implementation
+<h3>✅ After Implementation</h3>
 - **Deletion window**: 30+ days
 - **Accidental deletions**: 0/month
 - **Recovery incidents**: 0
