@@ -11,7 +11,7 @@
 
 [data-theme="lcars2"] {
 	/* -- gaps */
-	--gap: 1.6rem;
+	--gap: 0.8rem;
 
 	/* -- lcars colors*/
 	--lcars-pale-canary: #ffff99;
@@ -87,12 +87,12 @@
    ========================================================== */
 
 [data-theme="lcars2"] html {
-	font-size: 62.5%;
+	font-size: 100%;
 	color-scheme: dark;
 }
 
 [data-theme="lcars2"] body {
-	font-size: 1.7rem;
+	font-size: 1rem;
 	color: var(--color-text);
 	background: var(--color-background);
 	font-family: var(--font-family);
@@ -113,30 +113,30 @@
 }
 
 [data-theme="lcars2"] h1 {
-	font-size: 4.88rem;
+	font-size: 2.2rem;
 	font-weight: normal;
 	text-align: right;
 }
 
 [data-theme="lcars2"] h2 {
-	font-size: 2.56rem;
+	font-size: 1.8rem;
 	font-weight: normal;
 }
 
 [data-theme="lcars2"] h3 {
-	font-size: 2.04rem;
+	font-size: 1.5rem;
 }
 
 [data-theme="lcars2"] h4 {
-	font-size: 1.6rem;
+	font-size: 1.3rem;
 }
 
 [data-theme="lcars2"] h5 {
-	font-size: 1.44rem;
+	font-size: 1.1rem;
 }
 
 [data-theme="lcars2"] h6 {
-	font-size: 1.2rem;
+	font-size: 1rem;
 }
 
 [data-theme="lcars2"] a {
@@ -155,7 +155,7 @@
 	padding: var(--gap) var(--gap);
 	margin-top: calc(var(--gap) / 2);
 	line-height: 1.5;
-	font-size: 1.4rem;
+	font-size: 0.9rem;
 	color: var(--color-success);
 	background-color: var(--color-background);
 	border-radius: calc(var(--gap) * .75);
@@ -251,7 +251,7 @@
 	margin: 0;
 	color: var(--color-text-dark);
 	text-align: right;
-	font-size: 2.5rem;
+	font-size: 1.8rem;
 }
 
 [data-theme="lcars2"] .banner-overlay h1 a {
@@ -267,7 +267,7 @@
 	background-image: linear-gradient(var(--color-background) 36px, transparent 36px);
 	padding: var(--gap);
 	text-align: center;
-	font-size: 1.4rem;
+	font-size: 0.9rem;
 	text-transform: uppercase;
 	font-weight: var(--font-bold);
 }
@@ -304,7 +304,7 @@
 	border: 2px solid var(--color-disabled);
 	color: var(--color-text);
 	border-radius: 8px;
-	font-size: 1.6rem;
+	font-size: 0.9rem;
 	padding: calc(var(--gap) / 4) calc(var(--gap) / 2);
 	text-transform: uppercase;
 	font-weight: var(--font-bold);
@@ -399,7 +399,7 @@
 	color: var(--color-primary);
 	margin-top: 0;
 	margin-bottom: var(--gap);
-	font-size: 1.6rem;
+	font-size: 1.1rem;
 }
 
 [data-theme="lcars2"] .sidebar-section a {
@@ -423,7 +423,7 @@
 	border: 2px solid var(--color-disabled);
 	color: var(--color-text);
 	border-radius: 8px;
-	font-size: 1.6rem;
+	font-size: 0.9rem;
 	padding: calc(var(--gap) / 2);
 	box-sizing: border-box;
 }
@@ -453,7 +453,7 @@
 	letter-spacing: .025rem;
 	background-color: var(--color-primary);
 	cursor: pointer;
-	font-size: 1.4rem;
+	font-size: 0.9rem;
 	transition: background-color var(--transition);
 }
 
@@ -486,7 +486,7 @@
 [data-theme="lcars2"] .post-meta {
 	color: var(--color-quaternary);
 	text-transform: uppercase;
-	font-size: 1.2rem;
+	font-size: 0.8rem;
 	letter-spacing: 1px;
 	margin-bottom: var(--gap);
 	font-weight: var(--font-bold);
@@ -538,7 +538,7 @@
 	text-transform: uppercase;
 	font-weight: bold;
 	padding: calc(var(--gap) / 4) calc(var(--gap) / 2);
-	font-size: 1.2rem;
+	font-size: 0.7rem;
 	margin: 0 calc(var(--gap) / 4) calc(var(--gap) / 4) 0;
 	display: inline-block;
 	cursor: pointer;
@@ -608,7 +608,7 @@
 	color: var(--color-text);
 	text-transform: uppercase;
 	font-weight: var(--font-bold);
-	font-size: 1.4rem;
+	font-size: 0.9rem;
 }
 
 /* RESPONSIVE DESIGN
@@ -730,7 +730,7 @@
 	border: 2px solid var(--color-disabled);
 	color: var(--color-text);
 	border-radius: 8px;
-	font-size: 1.6rem;
+	font-size: 0.9rem;
 	padding: calc(var(--gap) / 2);
 }
 
@@ -745,7 +745,7 @@
 
 [data-theme="lcars2"] .newsletter-text,
 [data-theme="lcars2"] .support-text {
-	font-size: 1.2rem;
+	font-size: 0.8rem;
 	color: var(--color-quaternary);
 	margin-top: calc(var(--gap) / 2);
 	text-transform: none;

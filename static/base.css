@@ -112,6 +112,7 @@ h1 {
     margin-bottom: 20px;
     padding-bottom: 20px;
     border-bottom: 1px solid var(--border);
+    display: block;
 }
 
 .tags {
@@ -508,4 +509,28 @@ main {
     font-size: 0.8em;
     color: #666;
     font-weight: bold;
+}
+
+/* List styling fixes */
+ul, ol {
+    margin: 1em 0;
+    padding-left: 2em;
+}
+
+li {
+    margin-bottom: 0.5em;
+    display: list-item;
+}
+
+/* Grid container list fixes */
+div[style*="grid"] ul,
+div[style*="grid"] ol {
+    margin: 0.5em 0;
+    padding-left: 1.5em;
+}
+
+div[style*="grid"] li {
+    margin-bottom: 0.3em;
+    display: list-item;
+    list-style-position: outside;
 }
