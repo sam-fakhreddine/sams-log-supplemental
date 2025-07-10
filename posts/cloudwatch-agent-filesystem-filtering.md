@@ -66,12 +66,12 @@ Here's the comprehensive filter list that addresses these issues:
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
 <div>
 
-### Virtual/Pseudo File Systems
+<h3>🗂️ Virtual/Pseudo File Systems</h3>
 - **proc, sysfs, devpts**: Kernel interfaces
 - **cgroup, cgroup2**: Container management
 - **tmpfs, ramfs**: Memory-based storage
 
-### Network File Systems
+<h3>🌐 Network File Systems</h3>
 - **nfs, nfs4, cifs, smb**: Network latency issues
 - **efs, fsx**: AWS managed (separate monitoring)
 - **s3fs, goofys**: Object storage FUSE mounts
@@ -79,12 +79,12 @@ Here's the comprehensive filter list that addresses these issues:
 </div>
 <div>
 
-### Container/Overlay Systems
+<h3>📦 Container/Overlay Systems</h3>
 - **overlay, overlay2**: Docker/container layers
 - **aufs, devicemapper**: Legacy storage drivers
 - **loop***: Loopback devices
 
-### Cloud Provider Utilities
+<h3>☁️ Cloud Provider Utilities</h3>
 - **amazon-efs-client-utils**: AWS service mounts
 - **amazon-ssm-agent**: SSM agent mounts
 - **mountpoint-s3**: AWS S3 FUSE driver
@@ -97,7 +97,7 @@ Here's the comprehensive filter list that addresses these issues:
 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 20px 0;">
 <div>
 
-### 🚀 Performance
+<h3>🚀 Performance</h3>
 - 80% reduction in overhead
 - Faster metric collection
 - Lower CPU/memory usage
@@ -105,7 +105,7 @@ Here's the comprehensive filter list that addresses these issues:
 </div>
 <div>
 
-### 💰 Cost Reduction
+<h3>💰 Cost Reduction</h3>
 - Fewer CloudWatch metrics
 - Less API calls
 - Reduced data transfer
@@ -113,7 +113,7 @@ Here's the comprehensive filter list that addresses these issues:
 </div>
 <div>
 
-### 🎯 Better Alerting
+<h3>🎯 Better Alerting</h3>
 - Focused notifications
 - No false positives
 - Cleaner dashboards
@@ -154,12 +154,12 @@ Deploy the configuration in a test environment first to ensure you're not accide
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
 <div>
 
-### Container Environments
+<h3>🐳 Container Environments</h3>
 Essential for Docker/Kubernetes:
 - **Before**: Dozens of overlay mounts
 - **After**: Only host storage monitored
 
-### Multi-Mount Systems
+<h3>🔗 Multi-Mount Systems</h3>
 Servers with network mounts:
 - **Before**: NFS timeouts cause delays
 - **After**: Reliable local monitoring
@@ -167,12 +167,12 @@ Servers with network mounts:
 </div>
 <div>
 
-### AWS Environments
+<h3>☁️ AWS Environments</h3>
 Using EFS, FSx, or S3 mounts:
 - **Before**: Duplicate monitoring overhead
 - **After**: AWS services use native metrics
 
-### What You'll Monitor
+<h3>🎯 What You'll Monitor</h3>
 - Root file system (/, ext4/xfs)
 - Data volumes (/data, /var)
 - Application storage
