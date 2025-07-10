@@ -14,13 +14,13 @@ If you've worked with AWS GuardDuty in a production environment, you've probably
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
 <div>
 
-### GuardDuty Challenges
+<h3>🛡️ GuardDuty Challenges</h3>
 - Detects suspicious S3 activity well
 - Legitimate operations trigger alerts
 - Manual investigation required
 - Dynamic environments create noise
 
-### 2 AM Alert Scenario
+<h3>🌙 2 AM Alert Scenario</h3>
 Security team gets "unusual S3 data movement" alert. Could be:
 - Legitimate data migration
 - Approved security remediation
@@ -30,14 +30,14 @@ Security team gets "unusual S3 data movement" alert. Could be:
 </div>
 <div>
 
-### Investigation Overhead
+<h3>🔍 Investigation Overhead</h3>
 - Correlate CloudTrail logs
 - Check change management systems
 - Wake up team members
 - Verify activity legitimacy
 - Average response: **45 minutes**
 
-### The Cost
+<h3>💸 The Cost</h3>
 - **78% false positive rate**
 - Security analyst burnout
 - Delayed threat response
@@ -55,11 +55,11 @@ S3 object metadata provides an elegant solution to this problem. By embedding ch
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
 <div>
 
-### Metadata Types
+<h3>📊 Metadata Types</h3>
 - **System metadata**: AWS-managed (Content-Type, Last-Modified)
 - **User-defined metadata**: Custom key-value pairs
 
-### Key Constraints
+<h3>⚠️ Key Constraints</h3>
 - **2KB total limit** for user metadata
 - **Lowercase keys** only (letters, numbers, hyphens)
 - **Auto-prefixed** with `x-amz-meta-`
@@ -68,13 +68,13 @@ S3 object metadata provides an elegant solution to this problem. By embedding ch
 </div>
 <div>
 
-### Best Practices
+<h3>🎯 Best Practices</h3>
 - Plan metadata schema upfront
 - Use consistent naming conventions
 - Validate size before operations
 - Include essential tracking info
 
-### Common Use Cases
+<h3>📝 Common Use Cases</h3>
 - Change request tracking
 - Operator identification
 - Environment classification
@@ -215,28 +215,28 @@ class GuardDutyMetadataCorrelator:
 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 15px; margin: 20px 0;">
 <div>
 
-### 🚀 Investigation Time
+<h3>🚀 Investigation Time</h3>
 **67% reduction**
 45min → 8min average
 
 </div>
 <div>
 
-### 🎯 False Positives
+<h3>🎯 False Positives</h3>
 **55% improvement**
 78% → 23% rate
 
 </div>
 <div>
 
-### 📋 Compliance
+<h3>📋 Compliance</h3>
 **40% faster**
 Audit preparation
 
 </div>
 <div>
 
-### 💰 ROI
+<h3>💰 ROI</h3>
 **Immediate**
 Reduced overhead
 
@@ -248,7 +248,7 @@ Reduced overhead
 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 20px 0;">
 <div>
 
-### 🛡️ Security Teams
+<h3>🛡️ Security Teams</h3>
 - Immediate alert context
 - Automated correlation
 - Reduced alert fatigue
@@ -257,7 +257,7 @@ Reduced overhead
 </div>
 <div>
 
-### ⚙️ Operations Teams
+<h3>⚙️ Operations Teams</h3>
 - Built-in audit trails
 - Simplified compliance
 - Clear accountability
@@ -266,7 +266,7 @@ Reduced overhead
 </div>
 <div>
 
-### 📈 Management
+<h3>📈 Management</h3>
 - Better security metrics
 - Reduced overhead
 - Enhanced compliance
@@ -282,7 +282,7 @@ Reduced overhead
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
 <div>
 
-### 🔴 Production Schema
+<h3>🔴 Production Schema</h3>
 ```python
 PRODUCTION_METADATA = {
     'change-request-id': 'CR-XXXXX',
@@ -306,7 +306,7 @@ PRODUCTION_METADATA = {
 </div>
 <div>
 
-### 🟡 Non-Production Schema
+<h3>🟡 Non-Production Schema</h3>
 ```python
 NONPROD_METADATA = {
     'jira-ticket-id': 'PROJ-XXXXX',
@@ -354,7 +354,7 @@ The key to success is integrating with environment-appropriate governance:
 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 20px 0;">
 <div>
 
-### 🏁 Phase 1: Foundation
+<h3>🏁 Phase 1: Foundation</h3>
 **Week 1-2**
 - Develop metadata standards
 - Create wrapper scripts
@@ -364,7 +364,7 @@ The key to success is integrating with environment-appropriate governance:
 </div>
 <div>
 
-### ⚙️ Phase 2: Automation
+<h3>⚙️ Phase 2: Automation</h3>
 **Week 3-4**
 - GuardDuty correlation
 - Change management integration
@@ -374,7 +374,7 @@ The key to success is integrating with environment-appropriate governance:
 </div>
 <div>
 
-### 📈 Phase 3: Optimization
+<h3>📈 Phase 3: Optimization</h3>
 **Week 5-6**
 - Analyze metrics
 - Refine schemas

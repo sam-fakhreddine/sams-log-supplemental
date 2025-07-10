@@ -24,7 +24,7 @@ I wanted a simple, fast blog that could:
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
 <div>
 
-### Core Technologies
+<h3>🔧 Core Technologies</h3>
 - **Python** - Static site generation
 - **Poetry** - Dependency management
 - **Jinja2** - HTML templating
@@ -35,7 +35,7 @@ I wanted a simple, fast blog that could:
 </div>
 <div>
 
-### Key Dependencies
+<h3>📦 Key Dependencies</h3>
 ```toml
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -100,13 +100,13 @@ def build_site():
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
 <div>
 
-### 📝 Content Management
+<h3>📝 Content Management</h3>
 - **Frontmatter support** for metadata
 - **Tag system** for categorization
 - **Automatic date handling**
 - **Content validation** in CI
 
-### 🔍 SEO & Discovery
+<h3>🔍 SEO & Discovery</h3>
 - **XML sitemap** generation
 - **RSS feed** for subscribers
 - **Open Graph** meta tags
@@ -116,7 +116,7 @@ def build_site():
 </div>
 <div>
 
-### 🎨 Design & UX
+<h3>🎨 Design & UX</h3>
 - **Multi-theme system** (auto/light/dark/LCARS)
 - **Dynamic banner switching**
 - **Local storage** persistence
@@ -124,7 +124,7 @@ def build_site():
 - **WebP images** optimization
 - **Accessible** markup
 
-### 👨‍💻 Developer Experience
+<h3>👨‍💻 Developer Experience</h3>
 - **Poetry** dependency management
 - **GitHub Actions** with caching
 - **Error handling** & validation
@@ -185,7 +185,7 @@ Every push to `main` triggers:
 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 20px 0;">
 <div>
 
-### 🐍 Why Python?
+<h3>🐍 Why Python?</h3>
 - Full build control
 - Easy customization
 - Familiar ecosystem
@@ -194,7 +194,7 @@ Every push to `main` triggers:
 </div>
 <div>
 
-### 📦 Why Poetry?
+<h3>📦 Why Poetry?</h3>
 - Better dependency resolution
 - Reproducible builds
 - Modern packaging
@@ -203,7 +203,7 @@ Every push to `main` triggers:
 </div>
 <div>
 
-### 🌐 Why GitHub Pages?
+<h3>🌐 Why GitHub Pages?</h3>
 - Free hosting
 - Automatic HTTPS/CDN
 - Actions integration
@@ -218,7 +218,7 @@ Every push to `main` triggers:
 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 20px 0;">
 <div>
 
-### ⚡ Speed
+<h3>⚡ Speed</h3>
 - **Minimal CSS** - No frameworks
 - **Progressive enhancement**
 - **Smart JavaScript**
@@ -227,7 +227,7 @@ Every push to `main` triggers:
 </div>
 <div>
 
-### 🖼️ Assets
+<h3>🖼️ Assets</h3>
 - **WebP images** - Optimized format
 - **Responsive sizing**
 - **CSS variables** - Dynamic theming
@@ -236,7 +236,7 @@ Every push to `main` triggers:
 </div>
 <div>
 
-### ♿ Accessibility
+<h3>♿ Accessibility</h3>
 - **Semantic HTML5**
 - **Proper contrast**
 - **Screen reader friendly**
@@ -262,7 +262,7 @@ Some ideas for future iterations:
 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin: 20px 0;">
 <div>
 
-### 🎨 Design Features
+<h3>🎨 Design Features</h3>
 - ✅ Multi-theme system
 - ✅ Dynamic banners
 - ✅ Mobile responsive
@@ -271,7 +271,7 @@ Some ideas for future iterations:
 </div>
 <div>
 
-### 🔍 SEO & Content
+<h3>🔍 SEO & Content</h3>
 - ✅ Comprehensive SEO
 - ✅ RSS feed
 - ✅ Content validation
@@ -280,7 +280,7 @@ Some ideas for future iterations:
 </div>
 <div>
 
-### 🚀 DevOps
+<h3>🚀 DevOps</h3>
 - ✅ CI/CD pipeline
 - ✅ Advanced caching
 - ✅ Live site testing
