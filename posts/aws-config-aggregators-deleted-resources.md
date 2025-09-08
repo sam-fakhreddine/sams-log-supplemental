@@ -1,236 +1,172 @@
 ---
-title: "AWS Config Aggregators: Tracking Deleted Resources Across Your Organization"
-date: "2025-09-09"
-description: "Learn how AWS Config Aggregators can help you track and audit deleted resources across multiple accounts and regions, providing crucial visibility for compliance and security investigations."
+title: "AWS Config Aggregators: The Hidden Gap in Deleted Resource Tracking"
+date: "2025-01-16"
+description: "Discover why AWS Config Aggregators don't show deleted resources and learn alternative approaches for tracking resource deletions across your organization."
 tags: ["aws", "config", "compliance", "security", "governance", "multi-account"]
 ---
 
-# AWS Config Aggregators: Tracking Deleted Resources Across Your Organization
+# AWS Config Aggregators: The Hidden Gap in Deleted Resource Tracking
 
-When resources mysteriously disappear from your AWS environment, the investigation can be challenging. Was it deleted intentionally? By whom? When? AWS Config Aggregators provide a powerful solution for tracking deleted resources across your entire organization, giving you the visibility needed for compliance, security, and operational investigations.
+You've set up AWS Config Aggregators expecting comprehensive visibility across your organization, including deleted resources. But when you try to query for recently deleted S3 buckets or EC2 instances, you discover a frustrating limitation: **Config Aggregators don't retain deleted resource data**. This gap can leave you blind during critical compliance audits and security investigations.
 
-## 🎯 The Challenge: Visibility Across Accounts
+## 🚨 The Problem: Aggregators Don't Track Deletions
 
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
 <div>
 
-### 🔍 Common Scenarios
+### 💔 What You Expected
 <ul>
-<li><strong>Compliance Audits</strong>: "Show me all deleted S3 buckets last quarter"</li>
-<li><strong>Security Incidents</strong>: "What resources were deleted during the breach window?"</li>
-<li><strong>Cost Investigation</strong>: "Why did our EC2 costs drop suddenly?"</li>
-<li><strong>Change Management</strong>: "Track all infrastructure changes across accounts"</li>
+<li><strong>Centralized deletion tracking</strong> across all accounts</li>
+<li><strong>Historical queries</strong> for deleted resources</li>
+<li><strong>Compliance reporting</strong> with deletion timelines</li>
+<li><strong>Security investigation</strong> capabilities</li>
 </ul>
 
 </div>
 <div>
 
-### ⚠️ Without Aggregators
+### 😞 What You Actually Get
 <ul>
-<li>Manual account-by-account checking</li>
-<li>Inconsistent Config setup across accounts</li>
-<li>Limited cross-region visibility</li>
-<li>Time-consuming investigations</li>
-<li>Potential compliance gaps</li>
+<li><strong>Only current resources</strong> in aggregator views</li>
+<li><strong>No deletion history</strong> in centralized queries</li>
+<li><strong>Account-by-account investigation</strong> still required</li>
+<li><strong>Compliance gaps</strong> for audit requirements</li>
 </ul>
 
 </div>
 </div>
 
-## Understanding AWS Config Aggregators
+## Understanding the Limitation
 
-AWS Config Aggregators collect configuration data from multiple accounts and regions into a centralized view. This includes both current resources and historical data about deleted resources.
+AWS Config Aggregators collect configuration data from multiple accounts and regions into a centralized view. However, **they only aggregate currently existing resources**. When a resource is deleted from the source account's Config service, it disappears from the aggregator as well.
 
-### Key Benefits
+### What Aggregators Actually Provide
 
-**Centralized Visibility**: View configuration data from all accounts and regions in one place
+**Current Resource Inventory**: View active resources across accounts and regions
 
-**Historical Tracking**: Access configuration history including deleted resources
+**Live Compliance Status**: Check current compliance state organization-wide
 
-**Compliance Reporting**: Generate organization-wide compliance reports
+**Active Resource Queries**: Search for existing resources across your AWS organization
 
-**Cross-Account Queries**: Search for resources across your entire AWS organization
+### What's Missing
 
-## Setting Up Config Aggregators
+**Deleted Resource History**: No centralized view of deleted resources
 
-### 1. Organization-Wide Aggregator
+**Deletion Timelines**: Can't query when resources were removed
 
-For AWS Organizations, create an aggregator in your management account:
+**Historical Compliance**: Limited ability to show past compliance states
 
-```bash
-# Create organization-wide aggregator
-aws configservice put-configuration-aggregator \
-  --configuration-aggregator-name "OrgWideAggregator" \
-  --organization-aggregation-source '{
-    "RoleArn": "arn:aws:iam::123456789012:role/aws-service-role/organizations.amazonaws.com/AWSServiceRoleForOrganizations",
-    "AwsRegions": ["us-east-1", "us-west-2", "eu-west-1"],
-    "AllAwsRegions": false
-  }'
-```
+## The Reality: Individual Account Queries Required
 
-### 2. Account-Based Aggregator
+### Why Aggregators Don't Show Deleted Resources
 
-For specific accounts outside an organization:
+Config Aggregators work by collecting data from individual Config services in member accounts. When a resource is deleted:
 
-```bash
-# Create account-based aggregator
-aws configservice put-configuration-aggregator \
-  --configuration-aggregator-name "MultiAccountAggregator" \
-  --account-aggregation-sources '[{
-    "AccountIds": ["111111111111", "222222222222", "333333333333"],
-    "AwsRegions": ["us-east-1", "us-west-2"],
-    "AllAwsRegions": false
-  }]'
-```
+1. **Source account Config** marks the resource as `ResourceDeleted`
+2. **Aggregator sync** removes the deleted resource from centralized view
+3. **Historical data** remains only in the source account's Config history
 
-### 3. Required IAM Permissions
+### Querying Deleted Resources (Account-by-Account)
 
-The aggregator needs permissions to access Config data from member accounts:
-
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "config:GetComplianceDetailsByConfigRule",
-        "config:GetComplianceDetailsByResource",
-        "config:GetComplianceSummaryByConfigRule",
-        "config:GetComplianceSummaryByResourceType",
-        "config:GetResourceConfigHistory",
-        "config:ListDiscoveredResources",
-        "config:GetAggregateComplianceDetailsByConfigRule",
-        "config:GetAggregateConfigRuleComplianceSummary",
-        "config:GetAggregateDiscoveredResourceCounts",
-        "config:GetAggregateResourceConfig"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-```
-
-## Tracking Deleted Resources
-
-### Query Deleted Resources
-
-Use the Config API to find deleted resources across your organization:
+To find deleted resources, you must query each account individually:
 
 ```python
 import boto3
 from datetime import datetime, timedelta
 
-def find_deleted_resources(aggregator_name, resource_type, days_back=30):
+def find_deleted_resources_per_account(account_ids, regions, resource_type, days_back=30):
     """
-    Find deleted resources across the organization using Config Aggregator
+    Find deleted resources by querying each account individually
+    Note: This CANNOT use Config Aggregators - must query each account
     """
-    config_client = boto3.client('config')
+    deleted_resources = []
     
-    # Calculate time range
-    end_time = datetime.utcnow()
-    start_time = end_time - timedelta(days=days_back)
-    
-    try:
-        # Get aggregate discovered resources
-        response = config_client.get_aggregate_discovered_resource_counts(
-            ConfigurationAggregatorName=aggregator_name,
-            Filters={
-                'ResourceType': resource_type,
-                'AccountId': None,  # All accounts
-                'Region': None      # All regions
-            }
-        )
-        
-        deleted_resources = []
-        
-        # For each resource, check if it's been deleted
-        for resource_count in response['GroupedResourceCounts']:
-            account_id = resource_count['GroupName'].split(':')[0]
-            region = resource_count['GroupName'].split(':')[1]
-            
-            # Get detailed resource information
-            resources_response = config_client.list_aggregate_discovered_resources(
-                ConfigurationAggregatorName=aggregator_name,
-                ResourceType=resource_type,
-                Filters={
-                    'AccountId': account_id,
-                    'Region': region
-                }
-            )
-            
-            for resource in resources_response['ResourceIdentifiers']:
-                # Get resource configuration history
-                history_response = config_client.get_aggregate_resource_config(
-                    ConfigurationAggregatorName=aggregator_name,
-                    ResourceIdentifier={
-                        'SourceAccountId': account_id,
-                        'SourceRegion': region,
-                        'ResourceId': resource['ResourceId'],
-                        'ResourceType': resource_type,
-                        'ResourceName': resource.get('ResourceName', '')
-                    }
+    for account_id in account_ids:
+        for region in regions:
+            try:
+                # Assume role in target account
+                sts = boto3.client('sts')
+                role_arn = f"arn:aws:iam::{account_id}:role/ConfigQueryRole"
+                
+                assumed_role = sts.assume_role(
+                    RoleArn=role_arn,
+                    RoleSessionName='DeletedResourceQuery'
                 )
                 
-                config_item = history_response['ConfigurationItem']
+                # Create Config client for target account
+                config_client = boto3.client(
+                    'config',
+                    region_name=region,
+                    aws_access_key_id=assumed_role['Credentials']['AccessKeyId'],
+                    aws_secret_access_key=assumed_role['Credentials']['SecretAccessKey'],
+                    aws_session_token=assumed_role['Credentials']['SessionToken']
+                )
                 
-                # Check if resource was deleted in our time window
-                if (config_item['ConfigurationItemStatus'] == 'ResourceDeleted' and
-                    start_time <= config_item['ConfigurationItemCaptureTime'].replace(tzinfo=None) <= end_time):
-                    
-                    deleted_resources.append({
-                        'ResourceId': resource['ResourceId'],
-                        'ResourceType': resource_type,
-                        'AccountId': account_id,
-                        'Region': region,
-                        'DeletionTime': config_item['ConfigurationItemCaptureTime'],
-                        'ResourceName': resource.get('ResourceName', 'N/A')
-                    })
-        
-        return deleted_resources
-        
-    except Exception as e:
-        print(f"Error querying deleted resources: {str(e)}")
-        return []
+                # Query configuration history for deleted resources
+                end_time = datetime.utcnow()
+                start_time = end_time - timedelta(days=days_back)
+                
+                # This is the key limitation: must query each account individually
+                response = config_client.get_resource_config_history(
+                    resourceType=resource_type,
+                    laterTime=start_time,
+                    earlierTime=end_time
+                )
+                
+                for item in response['configurationItems']:
+                    if item['configurationItemStatus'] == 'ResourceDeleted':
+                        deleted_resources.append({
+                            'ResourceId': item['resourceId'],
+                            'ResourceType': resource_type,
+                            'AccountId': account_id,
+                            'Region': region,
+                            'DeletionTime': item['configurationItemCaptureTime'],
+                            'ResourceName': item.get('resourceName', 'N/A')
+                        })
+                        
+            except Exception as e:
+                print(f"Error querying account {account_id} in {region}: {str(e)}")
+                continue
+    
+    return deleted_resources
 
-# Example usage
-deleted_s3_buckets = find_deleted_resources(
-    aggregator_name='OrgWideAggregator',
+# Example usage - requires individual account queries
+deleted_resources = find_deleted_resources_per_account(
+    account_ids=['111111111111', '222222222222', '333333333333'],
+    regions=['us-east-1', 'us-west-2'],
     resource_type='AWS::S3::Bucket',
     days_back=7
 )
 
-for bucket in deleted_s3_buckets:
-    print(f"Deleted S3 Bucket: {bucket['ResourceName']} in {bucket['AccountId']}/{bucket['Region']} at {bucket['DeletionTime']}")
+for resource in deleted_resources:
+    print(f"Deleted {resource['ResourceType']}: {resource['ResourceName']} in {resource['AccountId']}/{resource['Region']}")
 ```
 
-### Advanced Queries with SQL
+### SQL Queries Don't Work Across Aggregators
 
-Use Config's advanced query feature for complex investigations:
+Config's advanced query feature has the same limitation - you cannot query deleted resources across aggregators:
 
 ```sql
--- Find all deleted EC2 instances in the last 30 days
+-- ❌ This WON'T work in Config Aggregator advanced queries
+-- Deleted resources are not available in aggregated data
 SELECT 
     resourceId,
     resourceType,
     accountId,
     awsRegion,
-    configurationItemCaptureTime,
-    tags
+    configurationItemCaptureTime
 WHERE 
-    resourceType = 'AWS::EC2::Instance'
-    AND configurationItemStatus = 'ResourceDeleted'
+    configurationItemStatus = 'ResourceDeleted'
     AND configurationItemCaptureTime > '2024-12-17T00:00:00.000Z'
-ORDER BY configurationItemCaptureTime DESC
+-- Returns: No results (even if resources were deleted)
 ```
 
 ```sql
--- Find deleted resources by specific tag
+-- ✅ This ONLY works when querying individual accounts
+-- Must run this query in each account's Config service separately
 SELECT 
     resourceId,
     resourceType,
-    accountId,
-    awsRegion,
     configurationItemCaptureTime,
     tags.Environment
 WHERE 
@@ -239,211 +175,178 @@ WHERE
     AND configurationItemCaptureTime > '2024-12-17T00:00:00.000Z'
 ```
 
-## 📊 Practical Use Cases
+## 🔧 Alternative Solutions
 
-### 1. Compliance Reporting
+### 1. CloudTrail for Deletion Events
 
-Generate reports showing all deleted resources for audit purposes:
-
-```python
-def generate_deletion_report(aggregator_name, start_date, end_date):
-    """
-    Generate a comprehensive deletion report for compliance
-    """
-    resource_types = [
-        'AWS::S3::Bucket',
-        'AWS::EC2::Instance',
-        'AWS::RDS::DBInstance',
-        'AWS::Lambda::Function',
-        'AWS::IAM::Role'
-    ]
-    
-    report = {
-        'report_period': f"{start_date} to {end_date}",
-        'deleted_resources': []
-    }
-    
-    for resource_type in resource_types:
-        deleted = find_deleted_resources(aggregator_name, resource_type, 30)
-        report['deleted_resources'].extend(deleted)
-    
-    # Sort by deletion time
-    report['deleted_resources'].sort(
-        key=lambda x: x['DeletionTime'], 
-        reverse=True
-    )
-    
-    return report
-```
-
-### 2. Security Investigation
-
-Track resource deletions during security incidents:
+Use CloudTrail to track deletion API calls across accounts:
 
 ```python
-def security_investigation(aggregator_name, incident_start, incident_end):
+def find_deletions_via_cloudtrail(account_ids, start_time, end_time):
     """
-    Investigate resource deletions during a security incident timeframe
+    Query CloudTrail for deletion events across accounts
     """
-    suspicious_deletions = []
+    deletion_events = []
     
-    # Focus on security-sensitive resources
-    sensitive_resources = [
-        'AWS::IAM::Role',
-        'AWS::IAM::Policy', 
-        'AWS::S3::Bucket',
-        'AWS::CloudTrail::Trail',
-        'AWS::Config::ConfigurationRecorder'
-    ]
-    
-    for resource_type in sensitive_resources:
-        # Custom time range for incident window
-        deletions = find_deleted_resources_in_timeframe(
-            aggregator_name, 
-            resource_type, 
-            incident_start, 
-            incident_end
+    for account_id in account_ids:
+        cloudtrail = boto3.client('cloudtrail')
+        
+        # Query for deletion events
+        response = cloudtrail.lookup_events(
+            LookupAttributes=[
+                {
+                    'AttributeKey': 'EventName',
+                    'AttributeValue': 'DeleteBucket'  # Example for S3
+                }
+            ],
+            StartTime=start_time,
+            EndTime=end_time
         )
-        suspicious_deletions.extend(deletions)
-    
-    return suspicious_deletions
-```
-
-### 3. Cost Analysis
-
-Correlate resource deletions with cost changes:
-
-```python
-def cost_impact_analysis(aggregator_name, resource_deletions):
-    """
-    Analyze the cost impact of deleted resources
-    """
-    cost_client = boto3.client('ce')  # Cost Explorer
-    
-    analysis = []
-    
-    for deletion in resource_deletions:
-        # Get cost data for the resource if available
-        if deletion['ResourceType'] in ['AWS::EC2::Instance', 'AWS::RDS::DBInstance']:
-            # Query Cost Explorer for resource-specific costs
-            cost_data = get_resource_costs(
-                cost_client,
-                deletion['ResourceId'],
-                deletion['DeletionTime']
-            )
-            
-            analysis.append({
-                'resource': deletion,
-                'estimated_monthly_cost': cost_data.get('monthly_cost', 0),
-                'cost_impact': 'High' if cost_data.get('monthly_cost', 0) > 1000 else 'Low'
+        
+        for event in response['Events']:
+            deletion_events.append({
+                'EventName': event['EventName'],
+                'EventTime': event['EventTime'],
+                'Username': event['Username'],
+                'Resources': event.get('Resources', [])
             })
     
-    return analysis
+    return deletion_events
 ```
 
-## 🛠️ Best Practices
+### 2. Custom Multi-Account Deletion Tracker
 
-### 1. Aggregator Configuration
+Build your own centralized deletion tracking:
+
+```python
+def build_deletion_inventory(organization_accounts):
+    """
+    Build centralized deletion inventory by querying all accounts
+    """
+    all_deletions = []
+    
+    for account in organization_accounts:
+        account_deletions = find_deleted_resources_per_account(
+            account_ids=[account['Id']],
+            regions=['us-east-1', 'us-west-2'],
+            resource_type='AWS::S3::Bucket',
+            days_back=30
+        )
+        all_deletions.extend(account_deletions)
+    
+    # Store in centralized database/S3 for reporting
+    store_deletion_data(all_deletions)
+    
+    return all_deletions
+```
+
+### 3. EventBridge for Real-Time Tracking
+
+Set up EventBridge rules to capture deletion events:
+
+```json
+{
+  "Rules": [
+    {
+      "Name": "S3BucketDeletions",
+      "EventPattern": {
+        "source": ["aws.s3"],
+        "detail-type": ["AWS API Call via CloudTrail"],
+        "detail": {
+          "eventSource": ["s3.amazonaws.com"],
+          "eventName": ["DeleteBucket"]
+        }
+      },
+      "Targets": [
+        {
+          "Id": "1",
+          "Arn": "arn:aws:lambda:us-east-1:123456789012:function:ProcessDeletion"
+        }
+      ]
+    }
+  ]
+}
+```
+
+## 🛠️ Workaround Strategies
+
+### 1. Understand the Limitation
 
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
 <div>
 
-### ✅ Do
+### ✅ What Aggregators ARE Good For
 <ul>
-<li><strong>Use organization-wide aggregators</strong> for centralized management</li>
-<li><strong>Include all relevant regions</strong> where you have resources</li>
-<li><strong>Set up proper IAM permissions</strong> for cross-account access</li>
-<li><strong>Monitor aggregator health</strong> and data freshness</li>
+<li><strong>Current resource inventory</strong> across accounts</li>
+<li><strong>Live compliance monitoring</strong> organization-wide</li>
+<li><strong>Active resource queries</strong> and reporting</li>
+<li><strong>Real-time configuration drift</strong> detection</li>
 </ul>
 
 </div>
 <div>
 
-### ❌ Don't
+### ❌ What Aggregators CAN'T Do
 <ul>
-<li><strong>Create multiple overlapping aggregators</strong> unnecessarily</li>
-<li><strong>Include unused regions</strong> to avoid extra costs</li>
-<li><strong>Forget to update permissions</strong> when adding accounts</li>
-<li><strong>Ignore aggregation failures</strong> in member accounts</li>
+<li><strong>Track deleted resources</strong> centrally</li>
+<li><strong>Provide deletion history</strong> across accounts</li>
+<li><strong>Support historical compliance</strong> queries</li>
+<li><strong>Show resource lifecycle</strong> end-to-end</li>
 </ul>
 
 </div>
 </div>
 
-### 2. Monitoring and Alerting
+### 2. Implement Complementary Solutions
 
-Set up CloudWatch alarms for aggregator health:
+**CloudTrail Integration**: Track deletion API calls across accounts
 
-```python
-def create_aggregator_monitoring(aggregator_name):
-    """
-    Create CloudWatch alarms for Config Aggregator monitoring
-    """
-    cloudwatch = boto3.client('cloudwatch')
-    
-    # Alarm for aggregation failures
-    cloudwatch.put_metric_alarm(
-        AlarmName=f'ConfigAggregator-{aggregator_name}-Failures',
-        ComparisonOperator='GreaterThanThreshold',
-        EvaluationPeriods=2,
-        MetricName='NumberOfFailedAggregations',
-        Namespace='AWS/Config',
-        Period=300,
-        Statistic='Sum',
-        Threshold=0,
-        ActionsEnabled=True,
-        AlarmActions=[
-            'arn:aws:sns:us-east-1:123456789012:config-alerts'
-        ],
-        AlarmDescription=f'Config Aggregator {aggregator_name} has aggregation failures',
-        Dimensions=[
-            {
-                'Name': 'AggregatorName',
-                'Value': aggregator_name
-            }
-        ]
-    )
-```
+**Custom Automation**: Build Lambda functions to query accounts individually
 
-### 3. Data Retention
+**EventBridge Rules**: Capture deletion events in real-time
 
-Understand Config's data retention policies:
+**External Storage**: Store deletion data in S3/DynamoDB for centralized access
 
-- **Configuration history**: Retained for the period specified in your delivery channel
-- **Deleted resources**: Available in aggregator as long as the source account retains the data
-- **Query results**: Available through the Config API and console
+### 3. Set Proper Expectations
 
-## 💰 Cost Considerations
+**For Current Resources**: Use Config Aggregators for live inventory and compliance
+
+**For Deleted Resources**: Plan for individual account queries or alternative solutions
+
+**For Compliance**: Combine Config data with CloudTrail logs for complete audit trails
+
+**For Automation**: Build custom solutions that work around the aggregator limitation
+
+## 💡 Recommended Architecture
 
 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 20px 0;">
 <div>
 
-### 📊 Config Costs
+### 🏗️ Current Resources
 <ul>
-<li><strong>Configuration items</strong>: $0.003 per item</li>
-<li><strong>Config rules</strong>: $0.001 per evaluation</li>
-<li><strong>Aggregator</strong>: No additional cost</li>
+<li><strong>Config Aggregators</strong>: Live inventory</li>
+<li><strong>Compliance monitoring</strong>: Real-time status</li>
+<li><strong>Resource queries</strong>: Cross-account search</li>
 </ul>
 
 </div>
 <div>
 
-### 💾 Storage Costs
+### 🗑️ Deleted Resources
 <ul>
-<li><strong>S3 delivery channel</strong>: Standard S3 pricing</li>
-<li><strong>Retention period</strong>: Affects storage costs</li>
-<li><strong>Cross-region</strong>: Data transfer charges</li>
+<li><strong>CloudTrail</strong>: API call tracking</li>
+<li><strong>Custom Lambda</strong>: Multi-account queries</li>
+<li><strong>S3/DynamoDB</strong>: Centralized storage</li>
 </ul>
 
 </div>
 <div>
 
-### 🎯 Optimization Tips
+### 📊 Reporting
 <ul>
-<li>Monitor only necessary resource types</li>
-<li>Set appropriate retention periods</li>
-<li>Use lifecycle policies on S3 buckets</li>
-<li>Regular cleanup of old data</li>
+<li><strong>Combine both sources</strong>: Complete picture</li>
+<li><strong>Automated collection</strong>: Scheduled queries</li>
+<li><strong>Dashboard integration</strong>: Unified view</li>
 </ul>
 
 </div>
@@ -451,15 +354,15 @@ Understand Config's data retention policies:
 
 ## Conclusion
 
-AWS Config Aggregators provide essential visibility into resource changes across your organization, including deleted resources. By implementing proper aggregation strategies, you can:
+AWS Config Aggregators are powerful for tracking **current** resources across your organization, but they have a critical limitation: **deleted resources disappear from aggregated views**. Understanding this gap is essential for:
 
-- **Enhance compliance** with centralized audit trails
-- **Improve security** through comprehensive change tracking  
-- **Streamline investigations** with cross-account visibility
-- **Support governance** with organization-wide reporting
+- **Setting realistic expectations** for compliance and audit capabilities
+- **Planning complementary solutions** for deletion tracking
+- **Designing proper architecture** that combines multiple AWS services
+- **Avoiding surprises** during critical investigations
 
-The investment in setting up Config Aggregators pays dividends in operational efficiency, security posture, and compliance readiness. Start with an organization-wide aggregator and expand your monitoring as your AWS footprint grows.
+Config Aggregators remain valuable for live resource inventory and compliance monitoring. For deleted resource tracking, plan to implement CloudTrail analysis, custom automation, or third-party solutions that can provide the centralized deletion visibility you need.
 
 ---
 
-*Have you implemented Config Aggregators in your organization? What challenges have you faced with tracking deleted resources across multiple accounts? Share your experiences in the comments below.*
+*Have you discovered this Config Aggregator limitation in your environment? What alternative approaches have you implemented for tracking deleted resources? Share your workarounds in the comments below.*
