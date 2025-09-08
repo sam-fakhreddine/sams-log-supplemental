@@ -1,6 +1,6 @@
 ---
 title: "AWS Config Aggregators: The Hidden Gap in Deleted Resource Tracking"
-date: "2025-01-16"
+date: "2025-09-08"
 description: "Discover why AWS Config Aggregators don't show deleted resources and learn alternative approaches for tracking resource deletions across your organization."
 tags: ["aws", "config", "compliance", "security", "governance", "multi-account"]
 ---
