@@ -15,6 +15,7 @@ You've set up AWS Config Aggregators expecting comprehensive visibility across y
 <div>
 
 ### 💔 What You Expected
+
 <ul>
 <li><strong>Centralized deletion tracking</strong> across all accounts</li>
 <li><strong>Historical queries</strong> for deleted resources</li>
@@ -26,6 +27,7 @@ You've set up AWS Config Aggregators expecting comprehensive visibility across y
 <div>
 
 ### 😞 What You Actually Get
+
 <ul>
 <li><strong>Only current resources</strong> in aggregator views</li>
 <li><strong>No deletion history</strong> in centralized queries</li>
@@ -276,6 +278,7 @@ Set up EventBridge rules to capture deletion events:
 <div>
 
 ### ✅ What Aggregators ARE Good For
+
 <ul>
 <li><strong>Current resource inventory</strong> across accounts</li>
 <li><strong>Live compliance monitoring</strong> organization-wide</li>
@@ -287,6 +290,7 @@ Set up EventBridge rules to capture deletion events:
 <div>
 
 ### ❌ What Aggregators CAN'T Do
+
 <ul>
 <li><strong>Track deleted resources</strong> centrally</li>
 <li><strong>Provide deletion history</strong> across accounts</li>
@@ -323,6 +327,7 @@ Set up EventBridge rules to capture deletion events:
 <div>
 
 ### 🏗️ Current Resources
+
 <ul>
 <li><strong>Config Aggregators</strong>: Live inventory</li>
 <li><strong>Compliance monitoring</strong>: Real-time status</li>
@@ -333,6 +338,7 @@ Set up EventBridge rules to capture deletion events:
 <div>
 
 ### 🗑️ Deleted Resources
+
 <ul>
 <li><strong>CloudTrail</strong>: API call tracking</li>
 <li><strong>Custom Lambda</strong>: Multi-account queries</li>
@@ -343,6 +349,7 @@ Set up EventBridge rules to capture deletion events:
 <div>
 
 ### 📊 Reporting
+
 <ul>
 <li><strong>Combine both sources</strong>: Complete picture</li>
 <li><strong>Automated collection</strong>: Scheduled queries</li>
